@@ -1,10 +1,11 @@
 module flux_mod
 
-    use data_mod
     use structured_mesh_mod
     use functions_mod
 
     implicit none
+
+    public :: upwind_flux1D
     
 contains
 

@@ -2,6 +2,9 @@ module sample_mod
 
     use precision
     implicit none
+
+    private :: dFdr, Vdp, dCd_r, normalized_N_r
+    public :: acceptation_rejet
     
 contains
     
@@ -47,53 +50,53 @@ contains
     end function dFdr
 
 
-    function vp4(R) result(Vt_p)
+    ! function vp4(R) result(Vt_p)
 
-        !In
-        real(pr), intent(in) :: R
+    !     !In
+    !     real(pr), intent(in) :: R
 
-        !Out
-        real(pr) :: Vt_p
+    !     !Out
+    !     real(pr) :: Vt_p
 
-        !Local
+    !     !Local
 
-        real(pr), parameter :: lambda = 68e-9
-        real(pr), parameter :: rhop = 1024.0
-        real(pr), parameter :: rhoa = 1.19448
-        real(pr), parameter :: nua = 1.51905e-05
-        real(pr) :: Cd_p, RE, CU, vp2, f
-        integer :: iter
+    !     real(pr), parameter :: lambda = 68e-9
+    !     real(pr), parameter :: rhop = 1024.0
+    !     real(pr), parameter :: rhoa = 1.19448
+    !     real(pr), parameter :: nua = 1.51905e-05
+    !     real(pr) :: Cd_p, RE, CU, vp2, f
+    !     integer :: iter
 
-        CU = 1 + lambda / R * (1.257 + 0.4 * exp(-0.55 * 2 * R / lambda))
+    !     CU = 1 + lambda / R * (1.257 + 0.4 * exp(-0.55 * 2 * R / lambda))
 
-        vp2 = 0.01 * gravity * (R * 2)**2 * (rhop - rhoa) / (18 * nua * rhoa)
+    !     vp2 = 0.01 * gravity * (R * 2)**2 * (rhop - rhoa) / (18 * nua * rhoa)
 
-        do iter = 1, 200
-            RE = 2 * R * vp2 / nua
+    !     do iter = 1, 200
+    !         RE = 2 * R * vp2 / nua
 
-            if (RE < 500) then
-                Cd_p = 24.0 / RE * (1 + 0.15 * RE**0.687 + &
-                                    0.175 * (1 + 4.25e4 * RE**(-1.16))**(-1))
-            else
-                Cd_p = 0.85 - 9.76e-4 * RE + 1.091e-6 * RE**2 - &
-                    6.84e-10 * RE**3 + 2.72e-13 * RE**4 - &
-                    6.68e-17 * RE**5 + 9.83e-21 * RE**6 - &
-                    7.96e-25 * RE**7 + 2.73e-29 * RE**8
-            end if
+    !         if (RE < 500) then
+    !             Cd_p = 24.0 / RE * (1 + 0.15 * RE**0.687 + &
+    !                                 0.175 * (1 + 4.25e4 * RE**(-1.16))**(-1))
+    !         else
+    !             Cd_p = 0.85 - 9.76e-4 * RE + 1.091e-6 * RE**2 - &
+    !                 6.84e-10 * RE**3 + 2.72e-13 * RE**4 - &
+    !                 6.68e-17 * RE**5 + 9.83e-21 * RE**6 - &
+    !                 7.96e-25 * RE**7 + 2.73e-29 * RE**8
+    !         end if
 
-            Cd_p = Cd_p / CU
+    !         Cd_p = Cd_p / CU
 
-            f = Cd_p * RE / 24.0
-            vp2 = 0.5 * (gravity * (R * 2)**2 * (rhop - rhoa) / (18 * nua * rhoa * f)) + 0.5 * vp2
+    !         f = Cd_p * RE / 24.0
+    !         vp2 = 0.5 * (gravity * (R * 2)**2 * (rhop - rhoa) / (18 * nua * rhoa * f)) + 0.5 * vp2
 
-            if (2 * R > 1e-2) then
-                vp2 = 9.36
-            end if
-        end do
+    !         if (2 * R > 1e-2) then
+    !             vp2 = 9.36
+    !         end if
+    !     end do
 
-        Vt_p = vp2
+    !     Vt_p = vp2
 
-    end function vp4
+    ! end function vp4
 
     function Vdp(Vt_p)
 
