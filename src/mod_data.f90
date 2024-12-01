@@ -58,9 +58,40 @@ module data_mod
         integer  :: dim
         integer  :: cas
         real(pr) :: Lx
+        real(pr) :: Ly
         integer  :: Nx
-        integer  :: n_celle
+        integer  :: Ny
         real(pr) :: dx
+        real(pr) :: dy
+        real(pr) :: x_min
+        real(pr) :: y_min
+
+        integer  :: N_T
+        real(pr) :: T_min
+        real(pr) :: T_max
+        real(pr) :: dT
+
+        integer  :: N_vx
+        real(pr) :: vx_min
+        real(pr) :: vx_max
+        real(pr) :: dvx
+
+        integer  :: N_vy
+        real(pr) :: vy_min
+        real(pr) :: vy_max
+        real(pr) :: dvy
+
+        integer  :: N_r
+        real(pr) :: r_min
+        real(pr) :: r_max
+        real(pr) :: dr
+
+        integer  :: N_m
+        real(pr) :: m_min
+        real(pr) :: m_max
+        real(pr) :: dm
+
+        integer  :: n_celle
 
     end type DataType
 
@@ -91,7 +122,25 @@ contains
         call parse_toml(filename, "dim", data%dim)
         call parse_toml(filename, "cas", data%cas)
         call parse_toml(filename, "Lx", data%Lx)
+        call parse_toml(filename, "Ly", data%Ly)
         call parse_toml(filename, "Nx", data%Nx)
+        call parse_toml(filename, "Ny", data%Ny)
+        call parse_toml(filename, "x_min", data%x_min)
+        call parse_toml(filename, "y_min", data%y_min)
+        call parse_toml(filename, "N_T", data%N_T)
+        call parse_toml(filename, "N_r", data%N_r)
+        call parse_toml(filename, "N_vx", data%N_vx)
+        call parse_toml(filename, "N_vy", data%N_vy)
+        call parse_toml(filename, "T_min", data%T_min)
+        call parse_toml(filename, "vx_min", data%vx_min)
+        call parse_toml(filename, "vy_min", data%vy_min)
+        call parse_toml(filename, "r_min", data%r_min)
+        call parse_toml(filename, "T_max", data%T_max)
+        call parse_toml(filename, "vx_max", data%vx_max)
+        call parse_toml(filename, "vy_max", data%vy_max)
+        call parse_toml(filename, "r_max", data%r_max)
+
+
 
         data%k_a = 0.02411*(1+3.309e-3*(data%T_p_0_celcius) -1.441e-6*(data%T_p_0_celcius)**2)
         data%T_air = data%T_air_celcius + 273.15
@@ -128,10 +177,30 @@ contains
 
         if (data%dim == 1) then
             data%dx = data%Lx / (data%Nx)
+            data%dy = 1.0
+            data%dT = (data%T_max - data%T_min) / data%N_T
+            data%dvx = (data%vx_max - data%vx_min) / data%N_vx
+            data%dvy = 1.0
+            data%dr = (data%r_max - data%r_min) / data%N_r !> TODO > Répartir logarithmiquement
+            data%N_m = data%N_r
+            data%m_max = (4.0/3.0)*pi*data%r_max**3*data%rho_p
+            data%m_min = (4.0/3.0)*pi*data%r_min**3*data%rho_p
+            data%dm = (data%m_max - data%m_min) / data%N_m
+
+
+        else if (data%dim == 2) then
+            data%dx = data%Lx / (data%Nx)
+            data%dy = data%Ly / (data%Ny)
+            data%dT = (data%T_max - data%T_min) / data%N_T
+            data%dvx = (data%vx_max - data%vx_min) / data%N_vx
+            data%dvy = (data%vy_max - data%vy_min) / data%N_vy
+            data%dr = (data%r_max - data%r_min) / data%N_r !> TODO > Répartir logarithmiquement
         end if
 
         if (data%dim == 1) then
             data%n_celle = data%Nx-1
+        else if (data%dim == 2) then
+            data%n_celle = (data%Ny-1)*(data%Nx-1)
         else
             print*, "Error: Dimension can't be greater than 1 for the moment"
             stop

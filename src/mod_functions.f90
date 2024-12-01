@@ -15,13 +15,13 @@ function Re_p(data, r_p, v_p) result(res)
     !In
     type(DataType), intent(in) :: data
     real(pr), intent(in)         :: r_p
-    real(pr), dimension(data%dim), intent(in) :: v_p 
+    real(pr), intent(in) :: v_p 
 
     !Out
-    real(pr), dimension(data%dim) :: res
+    real(pr) :: res
 
     !Local
-    real(pr), dimension(data%dim) :: v_s
+    real(pr) :: v_s
 
     v_s = v_p - data%U_air
     res = 2.0*r_p*abs(v_s)/data%nu_air
@@ -47,25 +47,18 @@ function F_function(data, r_p, v_p, m_p) result(res)
     !In
     type(DataType), intent(in) :: data
     real(pr), intent(in)         :: r_p, m_p
-    real(pr), dimension(data%dim), intent(in) :: v_p 
+    real(pr), intent(in) :: v_p 
 
     !Out
-    real(pr), dimension(data%dim) :: res
+    real(pr) :: res
 
     !Local
     real(pr) :: tau_D
-    real(pr), dimension(data%dim) :: fct
+    real(pr) :: fct
 
     tau_D = tau_p(data, r_p, m_p)
     fct = (m_p/tau_D)*(data%U_air - v_p)
-    if (data%dim == 1) then
-        res = fct
-    else if (data%dim == 2) then
-        res(1) = fct(1)
-        res(2) = m_p*gravity + fct(2)
-    else
-        print*, "Dimension greater than 2 not allowed!"
-    end if
+    res = fct
 
 
 end function F_function
@@ -75,10 +68,10 @@ function f_v(data, r_p, v_p) result(res)
     !In
     type(DataType), intent(in) :: data
     real(pr), intent(in)         :: r_p
-    real(pr), dimension(data%dim), intent(in) :: v_p 
+    real(pr), intent(in) :: v_p 
 
     !Out
-    real(pr), dimension(data%dim) :: res
+    real(pr) :: res
 
     res = 1.0 + sqrt(Re_p(data, r_p,v_p))/4.0
 
@@ -94,14 +87,14 @@ function Dv_star_function(data, r_p, v_p) result(Dv_star)
     !In
     type(DataType), intent(in) :: data
     real(pr), intent(in)         :: r_p
-    real(pr), dimension(data%dim), intent(in) :: v_p 
+    real(pr), intent(in) :: v_p 
 
     !Out
-    real(pr), dimension(data%dim) :: Dv_star
+    real(pr) :: Dv_star
 
     !Local
     real(pr) :: b, c
-    real(pr), dimension(data%dim) :: a
+    real(pr) :: a
 
 
     a = f_v(data, r_p,v_p)*data%D_v
@@ -118,14 +111,14 @@ function ka_star_function(data, r_p, v_p) result(ka_star)
     !In
     type(DataType), intent(in) :: data
     real(pr), intent(in)         :: r_p
-    real(pr), dimension(data%dim), intent(in) :: v_p 
+    real(pr), intent(in) :: v_p 
 
     !Out
-    real(pr), dimension(data%dim) :: ka_star
+    real(pr) :: ka_star
 
     !Local
     real(pr) :: b, c
-    real(pr), dimension(data%dim) :: a
+    real(pr) :: a
 
 
     a = f_v(data, r_p,v_p)*data%k_a
@@ -143,13 +136,13 @@ function M_coeff(data, r_p, v_p, m_p, m_sel, T_p) result(M_res)
     !In
     type(DataType), intent(in) :: data
     real(pr), intent(in)         :: r_p, m_p, m_sel, T_p
-    real(pr), dimension(data%dim), intent(in) :: v_p 
+    real(pr), intent(in) :: v_p 
 
     !Out
-    real(pr), dimension(data%dim) :: M_res
+    real(pr) :: M_res
 
     !Local
-    real(pr), dimension(data%dim) :: a, b
+    real(pr) :: a, b
 
     a = (4*pi*r_p*Dv_star_function(data, r_p, v_p)*data%M_w*data%pv_sat_T_air)/&
     (data%R_g*data%T_air)
@@ -167,10 +160,10 @@ function R_coeff(data, r_p, v_p, m_p, m_sel, T_p) result(R_res)
     !In
     type(DataType), intent(in) :: data
     real(pr), intent(in)       :: r_p, m_p, m_sel, T_p
-    real(pr), dimension(data%dim), intent(in) :: v_p 
+    real(pr), intent(in) :: v_p 
 
     !Out
-    real(pr), dimension(data%dim) :: R_res
+    real(pr) :: R_res
 
     R_res = M_coeff(data,r_p, v_p, m_p, m_sel, T_p) / &
     (4.0_pr*pi*r_p**2*data%rho_w)
@@ -182,13 +175,13 @@ function T_coeff(data, r_p, v_p, m_p, m_sel, T_p) result(T_res)
     !In
     type(DataType), intent(in) :: data
     real(pr), intent(in)       :: r_p, m_p, m_sel, T_p
-    real(pr), dimension(data%dim), intent(in) :: v_p 
+    real(pr), intent(in) :: v_p 
 
     !Out
-    real(pr), dimension(data%dim) :: T_res
+    real(pr) :: T_res
 
     !Local
-    real(pr), dimension(data%dim) :: a
+    real(pr) :: a
 
     a = (4.0_pr*pi*ka_star_function(data, r_p, v_p)*&
     (data%T_air - T_p))/(m_p*data%c_p_s)
@@ -203,10 +196,10 @@ function b_function(data, r_p, v_p, m_p, m_sel, T_p) result(b_res)
     !In
     type(DataType), intent(in) :: data
     real(pr), intent(in)       :: r_p, m_p, m_sel, T_p
-    real(pr), dimension(data%dim), intent(in) :: v_p 
+    real(pr), intent(in) :: v_p 
 
     !Out
-    real(pr), dimension(data%dim) :: b_res
+    real(pr) :: b_res
 
     b_res = data%T_air + (data%L_v*M_coeff(data, r_p, v_p, m_p, m_sel, T_p)/(4*pi*r_p*ka_star_function(data, r_p, v_p)))
 
@@ -217,10 +210,10 @@ function tau_t(data, r_p, v_p, m_p) result(tau_t_res)
     !In
     type(DataType), intent(in) :: data
     real(pr), intent(in)       :: r_p, m_p
-    real(pr), dimension(data%dim), intent(in) :: v_p 
+    real(pr), intent(in) :: v_p 
 
     !Out
-    real(pr), dimension(data%dim) :: tau_t_res
+    real(pr) :: tau_t_res
 
     tau_t_res = m_p*data%c_p_s/(4*pi*r_p*ka_star_function(data, r_p, v_p))
 
