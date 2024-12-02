@@ -18,7 +18,6 @@ program EulerianOceanSpray
     ! Initialize the mesh
     call init_mesh(df, celles)
     
-
     ! Initialize de solution
     call initial_step(df, celles)
 

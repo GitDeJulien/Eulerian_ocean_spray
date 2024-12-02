@@ -1,0 +1,1 @@
+# Le repertoir __output__ acueille tous les fichier de sortie (_.dat_, _.vtk_ ...)
