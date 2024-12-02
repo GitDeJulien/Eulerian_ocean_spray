@@ -52,13 +52,13 @@
 
 # Compilation et exécution
  - Pour compiler deux possibilités:
-  - En mode debug: __make debug__ ou simplement __make__
-  - En mode released: __make release__
+    - En mode debug: __make debug__ ou simplement __make__
+    - En mode released: __make release__
  - Pour exécuter deux possibilités:
-  - En mode debug: __make exe_debug__
-  - En mode released: __make exe_release__
+    - En mode debug: __make exe_debug__
+    - En mode released: __make exe_release__
  - Pour clean:
-  - __make clean__
+    - __make clean__
 
 > [!NOTE]
 > Le repertoire __build__ acueille tous les fichier _.o_ ainsi que l'executable et le repertoire 
