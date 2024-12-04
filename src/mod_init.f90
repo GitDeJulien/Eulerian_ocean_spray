@@ -36,7 +36,7 @@ contains
                 do k=1,data%N_T !Temperature
 
                     if ( j == v_loc .and. k == T_loc) then
-                        mesh%SOL(i,j,i,k) = dCd_r(dFdr(mesh%r_tab(i)), Vdp(vp4(mesh%r_tab(i))))
+                        mesh%SOL(i,j,i,k) = normalized_N_r(dCd_r(dFdr(mesh%r_tab(i)), Vdp(vp4(mesh%r_tab(i)))))
                     end if
 
                 enddo

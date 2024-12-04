@@ -93,6 +93,12 @@ module data_mod
 
         integer  :: n_celle
 
+        ![TIME]
+        integer  :: time_scheme_key
+        real(pr) :: t0
+        integer  :: ntime
+        real(pr) :: cfl
+
     end type DataType
 
 contains
@@ -139,6 +145,12 @@ contains
         call parse_toml(filename, "vx_max", data%vx_max)
         call parse_toml(filename, "vy_max", data%vy_max)
         call parse_toml(filename, "r_max", data%r_max)
+
+        call parse_toml(filename, "time_scheme_key", data%time_scheme_key)
+        call parse_toml(filename, "t0", data%t0)
+        call parse_toml(filename, "ntime", data%ntime)
+        call parse_toml(filename, "cfl", data%cfl)
+
 
 
 

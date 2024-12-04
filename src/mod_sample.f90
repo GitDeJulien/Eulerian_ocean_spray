@@ -4,7 +4,7 @@ module sample_mod
     implicit none
 
     !private :: normalized_N_r!, acceptation_rejet
-    public :: dCd_r, dFdr, Vdp
+    public :: dCd_r, dFdr, Vdp, normalized_N_r
     
 contains
     
@@ -126,20 +126,20 @@ contains
 
     end function dCd_r
 
-    ! function normalized_N_r(dCdr) result(Nr_normed)
+    function normalized_N_r(dCdr) result(Nr_normed)
 
-    !     !In
-    !     real(pr), intent(in) :: dCdr
+        !In
+        real(pr), intent(in) :: dCdr
 
-    !     !Out
-    !     real(pr) :: Nr_normed
+        !Out
+        real(pr) :: Nr_normed
 
-    !     !Local
-    !     real(pr), parameter :: K = 8.55422e+08
+        !Local
+        real(pr), parameter :: K = 8.55422e+08
 
-    !     Nr_normed = dCdr/K
+        Nr_normed = dCdr/K
 
-    ! end function normalized_N_r
+    end function normalized_N_r
 
     ! function acceptation_rejet(seed) result(y)
     
