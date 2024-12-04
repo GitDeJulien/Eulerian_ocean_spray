@@ -5,7 +5,7 @@ program EulerianOceanSpray
 
     character(len=256) :: filepath
     type(DataType)     :: df
-    type(StructCelleType), dimension(:), allocatable :: celles
+    type(MeshType)     :: me
 
     filepath = 'data/data.toml'
 
@@ -15,14 +15,14 @@ program EulerianOceanSpray
     ! Read and stock all data from TOML data file
     call config_data(df, filepath)
 
-    ! Initialize the mesh
-    call init_mesh(df, celles)
+    !Initialize the mesh
+    call init_mesh(df, me)
     
-    ! Initialize de solution
-    call initial_step(df, celles)
+    !Initialize de solution
+    call initialize_sol(df, me)
 
-    print*, celles(1)%SOL(1,1,1,:)
+    !!TODO > Boucle en temps + calcul moyenne
 
-    deallocate(celles)
+    call free_mesh(me)
     
 end program EulerianOceanSpray

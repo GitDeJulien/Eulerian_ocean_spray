@@ -173,6 +173,8 @@ contains
         data%c_p_air_sec = 1.9327e-10*data%T_p_0**4-7.9999e-7*data%T_p_0**3+&
         & 1.1407e-3*data%T_p_0**2-4.4890e-1*data%T_p_0+1.0575e+3
         data%rho_air_sec = 1.2929*273.13/data%T_air
+        data%T_max = data%T_max + 273.15
+        data%T_min = data%T_min + 273.15
 
 
         if (data%dim == 1) then
