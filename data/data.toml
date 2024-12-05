@@ -41,8 +41,8 @@ N_vy = 10
 vy_min = -1.0
 vy_max = 16.0
 N_r = 20
-r_min = 10e-7
-r_max = 10e-2
+r_min = 10e-8
+r_max = 10e-3
 
 [TIME]
 time_scheme_key = 1

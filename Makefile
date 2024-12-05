@@ -72,7 +72,7 @@ exe_release:
 
 # Clean up
 clean:
-	$(RM) $(BUILD_DIR)/*.o $(BUILD_DIR)/run_debug $(BUILD_DIR)/run_release $(INCLUDE_DIR)/*.mod
+	$(RM) $(BUILD_DIR)/*.o $(BUILD_DIR)/run_debug $(BUILD_DIR)/run_release
 
 .PHONY: all clean depend debug release
 

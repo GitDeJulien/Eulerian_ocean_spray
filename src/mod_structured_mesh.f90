@@ -15,7 +15,8 @@ module structured_mesh_mod
     end type MeshType
 
 
-    public :: init_mesh, free_mesh
+    private :: logspace
+    public  :: init_mesh, free_mesh
     
 contains
 
@@ -28,11 +29,7 @@ contains
         type(MeshType), intent(inout) :: mesh
 
         !Local
-        integer  :: i, num
-        real(pr) :: factor
-
-        num = 10
-        factor = (data%r_max/data%r_min)**(1.0/(num-1))
+        integer  :: i
 
         allocate(mesh%x_tab(data%Nx))
         allocate(mesh%r_tab(data%N_r))
@@ -44,9 +41,7 @@ contains
             mesh%x_tab(i) = data%dx * (i-1) + data%x_min !Space
         end do
 
-        do i=1,data%N_r
-            mesh%r_tab(i) = data%r_min*factor**i !Radius (log10 space)
-        enddo
+        mesh%r_tab = logspace(data%r_min, data%r_max, data%N_r)
 
         do i=1,data%N_vx
             mesh%vx_tab(i) = data%vx_min + i*data%dvx !Velocity
@@ -75,6 +70,31 @@ contains
 
     end subroutine free_mesh
 
+    function logspace(start, stop, num) result(log_vector)
 
+        !In
+        real(pr), intent(in) :: start, stop
+        integer, intent(in) :: num
+
+        !Out
+        real(pr), dimension(num) :: log_vector
+
+        !Local
+        integer :: i
+        real(pr) :: log_start, log_stop, log_step
+    
+        ! Calculate the logarithms of the start and stop values
+        log_start = log10(start)
+        log_stop = log10(stop)
+    
+        ! Calculate the step size in log space
+        log_step = (log_stop - log_start) / (num - 1)
+    
+        ! Generate the logarithmically spaced vector
+        do i = 1, num
+          log_vector(i) = 10.0_pr ** (log_start + (i - 1) * log_step)
+        end do
+
+    end function logspace
     
 end module structured_mesh_mod
