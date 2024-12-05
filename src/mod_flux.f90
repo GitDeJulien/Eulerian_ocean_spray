@@ -38,7 +38,7 @@ contains
         !Local
         integer :: i, j, k, l
         real(pr) :: m_sel
-        real(pr) :: Fp, Fm, Gp, Gm, Hp, Hm, Ip, Im
+        real(pr) :: V, R, M, T, Fp, Fm, Gp, Gm, Hp, Hm, Ip, Im
 
 
         do i=1,data%N_r !radius
@@ -47,77 +47,57 @@ contains
                     do l=1,data%N_T !Temperature
                     
                         m_sel = (4.0/3.0)*pi*mesh%r_tab(i)**3*data%rho_p*data%Salinity_p/1000.0
+                        R = R_coeff(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k), m_sel, mesh%T_tab(l))
+                        V = F_function(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k))/mesh%m_tab(k)
+                        M = M_coeff(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k), m_sel, mesh%T_tab(l))
+                        T = T_coeff(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k), m_sel, mesh%T_tab(l))
 
                         !radius
                         if(i==1) then 
-                            Fp = upwind_flux(mesh%SOL(i,j,k,l),mesh%SOL(i+1,j,k,l),&
-                                R_coeff(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k), m_sel, mesh%T_tab(l)))
-                            Fm = upwind_flux(0.0_pr,mesh%SOL(i,j,k,l),&
-                                R_coeff(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k), m_sel, mesh%T_tab(l)))
+                            Fp = upwind_flux(mesh%SOL(i,j,k,l),mesh%SOL(i+1,j,k,l),R)
+                            Fm = upwind_flux(0.0_pr,mesh%SOL(i,j,k,l),R)
                         else if(i==data%N_r) then
-                            Fp = upwind_flux(mesh%SOL(i,j,k,l),0.0_pr,&
-                                R_coeff(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k), m_sel, mesh%T_tab(l)))
-                            Fm = upwind_flux(mesh%SOL(i-1,j,k,l),mesh%SOL(i,j,k,l),&
-                                R_coeff(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k), m_sel, mesh%T_tab(l)))
+                            Fp = upwind_flux(mesh%SOL(i,j,k,l),0.0_pr,R)
+                            Fm = upwind_flux(mesh%SOL(i-1,j,k,l),mesh%SOL(i,j,k,l),R)
                         else 
-                            Fp = upwind_flux(mesh%SOL(i,j,k,l),mesh%SOL(i+1,j,k,l),&
-                                R_coeff(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k), m_sel, mesh%T_tab(l)))
-                            Fm = upwind_flux(mesh%SOL(i-1,j,k,l),mesh%SOL(i,j,k,l),&
-                                R_coeff(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k), m_sel, mesh%T_tab(l)))
+                            Fp = upwind_flux(mesh%SOL(i,j,k,l),mesh%SOL(i+1,j,k,l),R)
+                            Fm = upwind_flux(mesh%SOL(i-1,j,k,l),mesh%SOL(i,j,k,l),R)
                         end if
 
                         !velocity
                         if(j==1) then
-                            Gp = upwind_flux(mesh%SOL(i,j,k,l),mesh%SOL(i,j+1,k,l),&
-                                F_function(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k))/mesh%m_tab(k))
-                            Gm = upwind_flux(0.0_pr,mesh%SOL(i,j,k,l),&
-                                F_function(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k))/mesh%m_tab(k))
+                            Gp = upwind_flux(mesh%SOL(i,j,k,l),mesh%SOL(i,j+1,k,l),V)
+                            Gm = upwind_flux(0.0_pr,mesh%SOL(i,j,k,l),V)
                         else if(j==data%N_vx) then
-                            Gp = upwind_flux(mesh%SOL(i,j,k,l),0.0_pr,&
-                                F_function(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k))/mesh%m_tab(k))
-                            Gm = upwind_flux(mesh%SOL(i,j-1,k,l),mesh%SOL(i,j,k,l),&
-                                F_function(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k))/mesh%m_tab(k))
+                            Gp = upwind_flux(mesh%SOL(i,j,k,l),0.0_pr,V)
+                            Gm = upwind_flux(mesh%SOL(i,j-1,k,l),mesh%SOL(i,j,k,l),V)
                         else 
-                            Gp = upwind_flux(mesh%SOL(i,j,k,l),mesh%SOL(i,j+1,k,l),&
-                                F_function(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k))/mesh%m_tab(k))
-                            Gm = upwind_flux(mesh%SOL(i,j-1,k,l),mesh%SOL(i,j,k,l),&
-                                F_function(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k))/mesh%m_tab(k))
+                            Gp = upwind_flux(mesh%SOL(i,j,k,l),mesh%SOL(i,j+1,k,l),V)
+                            Gm = upwind_flux(mesh%SOL(i,j-1,k,l),mesh%SOL(i,j,k,l),V)
                         end if
 
                         !masse
                         if(k==1) then
-                            Hp = upwind_flux(mesh%SOL(i,j,k,l),mesh%SOL(i,j,k+1,l),&
-                                M_coeff(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k), m_sel, mesh%T_tab(l)))
-                            Hm = upwind_flux(0.0_pr,mesh%SOL(i,j,k,l),&
-                                M_coeff(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k), m_sel, mesh%T_tab(l)))
+                            Hp = upwind_flux(mesh%SOL(i,j,k,l),mesh%SOL(i,j,k+1,l),M)
+                            Hm = upwind_flux(0.0_pr,mesh%SOL(i,j,k,l),M)
                         else if(k==data%N_m) then
-                            Hp = upwind_flux(mesh%SOL(i,j,k,l),0.0_pr,&
-                                M_coeff(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k), m_sel, mesh%T_tab(l)))
-                            Hm = upwind_flux(mesh%SOL(i,j,k-1,l),mesh%SOL(i,j,k,l),&
-                                M_coeff(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k), m_sel, mesh%T_tab(l)))
+                            Hp = upwind_flux(mesh%SOL(i,j,k,l),0.0_pr,M)
+                            Hm = upwind_flux(mesh%SOL(i,j,k-1,l),mesh%SOL(i,j,k,l),M)
                         else 
-                            Hp = upwind_flux(mesh%SOL(i,j,k,l),mesh%SOL(i,j,k+1,l),&
-                                M_coeff(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k), m_sel, mesh%T_tab(l)))
-                            Hm = upwind_flux(mesh%SOL(i,j,k-1,l),mesh%SOL(i,j,k,l),&
-                                M_coeff(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k), m_sel, mesh%T_tab(l)))
+                            Hp = upwind_flux(mesh%SOL(i,j,k,l),mesh%SOL(i,j,k+1,l),M)
+                            Hm = upwind_flux(mesh%SOL(i,j,k-1,l),mesh%SOL(i,j,k,l),M)
                         end if
 
                         !Temperature
                         if(l==1) then
-                            Ip = upwind_flux(mesh%SOL(i,j,k,l),mesh%SOL(i,j,k,l+1),&
-                                T_coeff(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k), m_sel, mesh%T_tab(l)))
-                            Im = upwind_flux(0.0_pr,mesh%SOL(i,j,k,l),&
-                                T_coeff(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k), m_sel, mesh%T_tab(l)))
+                            Ip = upwind_flux(mesh%SOL(i,j,k,l),mesh%SOL(i,j,k,l+1),T)
+                            Im = upwind_flux(0.0_pr,mesh%SOL(i,j,k,l),T)
                         else if (l==data%N_T) then
-                            Ip = upwind_flux(mesh%SOL(i,j,k,l),0.0_pr,&
-                                T_coeff(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k), m_sel, mesh%T_tab(l)))
-                            Im = upwind_flux(mesh%SOL(i,j,k,l-1),mesh%SOL(i,j,k,l),&
-                                T_coeff(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k), m_sel, mesh%T_tab(l)))
+                            Ip = upwind_flux(mesh%SOL(i,j,k,l),0.0_pr,T)
+                            Im = upwind_flux(mesh%SOL(i,j,k,l-1),mesh%SOL(i,j,k,l),T)
                         else
-                            Ip = upwind_flux(mesh%SOL(i,j,k,l),mesh%SOL(i,j,k,l+1),&
-                                T_coeff(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k), m_sel, mesh%T_tab(l)))
-                            Im = upwind_flux(mesh%SOL(i,j,k,l-1),mesh%SOL(i,j,k,l),&
-                                T_coeff(data, mesh%r_tab(i), mesh%vx_tab(j), mesh%m_tab(k), m_sel, mesh%T_tab(l)))
+                            Ip = upwind_flux(mesh%SOL(i,j,k,l),mesh%SOL(i,j,k,l+1),T)
+                            Im = upwind_flux(mesh%SOL(i,j,k,l-1),mesh%SOL(i,j,k,l),T)
                         end if
 
                         flux(i,j,i,l) = (Fp-Fm)/data%dr + (Gp-Gm)/data%dvx + (Hp-Hm)/data%dm + (Ip-Im)/data%dT 
