@@ -42,7 +42,7 @@ subroutine advance (data, mesh, dt)
 
     SELECT CASE(data%time_scheme_key)
     CASE(1)
-        mesh%SOL = mesh%SOL - dt*upwind_flux(data, mesh)
+        mesh%SOL = mesh%SOL - dt*vector_flux(data, mesh)
         ! do i=1,data%N_r !radius
         !     do j=1,data%N_vx !velocity
         !         do l=1,data%N_T !Temperature
