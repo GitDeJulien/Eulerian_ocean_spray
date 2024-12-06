@@ -84,12 +84,10 @@ module data_mod
         integer  :: N_r
         real(pr) :: r_min
         real(pr) :: r_max
-        real(pr) :: dr
 
         integer  :: N_m
         real(pr) :: m_min
         real(pr) :: m_max
-        real(pr) :: dm
 
         integer  :: n_celle
 
@@ -195,11 +193,9 @@ contains
             data%dT = (data%T_max - data%T_min) / data%N_T
             data%dvx = (data%vx_max - data%vx_min) / data%N_vx
             data%dvy = 1.0
-            data%dr = (data%r_max - data%r_min) / data%N_r !> TODO > Répartir logarithmiquement
             data%N_m = data%N_r
             data%m_max = (4.0/3.0)*pi*data%r_max**3*data%rho_p
             data%m_min = (4.0/3.0)*pi*data%r_min**3*data%rho_p
-            data%dm = (data%m_max - data%m_min) / data%N_m
 
 
         else if (data%dim == 2) then
@@ -208,7 +204,6 @@ contains
             data%dT = (data%T_max - data%T_min) / data%N_T
             data%dvx = (data%vx_max - data%vx_min) / data%N_vx
             data%dvy = (data%vy_max - data%vy_min) / data%N_vy
-            data%dr = (data%r_max - data%r_min) / data%N_r !> TODO > Répartir logarithmiquement
         end if
 
         if (data%dim == 1) then
