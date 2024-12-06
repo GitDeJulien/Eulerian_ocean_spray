@@ -1,6 +1,5 @@
 module init_mod
 
-    use data_mod
     use functions_mod
     use structured_mesh_mod
     use sample_mod

@@ -1,6 +1,5 @@
 module flux_mod
 
-    use data_mod
     use structured_mesh_mod
     use functions_mod
 

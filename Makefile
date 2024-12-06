@@ -16,14 +16,23 @@ BUILD_DIR = ./build
 DEBUG_FFLAGS = -g -O0 -Wall -Wextra -Werror
 RELEASE_FFLAGS = -O2 -Wall -Wextra -Werror
 
-# Automatically find all source files
-SRC_FILES = $(wildcard $(SRC_DIR)/*.f90)
+# Automatically find all source files (needed to be in the good order in function of dependancies)
+SRC_FILES = $(SRC_DIR)/mod_data.f90 \
+			$(SRC_DIR)/mod_sample.f90 \
+			$(SRC_DIR)/mod_structured_mesh.f90 \
+			$(SRC_DIR)/mod_functions.f90 \
+			$(SRC_DIR)/mod_flux.f90 \
+			$(SRC_DIR)/time_scheme.f90 \
+			$(SRC_DIR)/mod_init.f90 \
+			$(SRC_DIR)/main.f90 \
+
 SUB_FILES = $(wildcard $(SUB_DIR)/*.f90)
 ALL_FILES = $(SRC_FILES) $(SUB_FILES)
 
 # Object files
-OBJS = $(patsubst $(SRC_DIR)/%.f90,$(BUILD_DIR)/%.o,$(SRC_FILES)) \
-		$(patsubst $(SUB_DIR)/%.f90,$(BUILD_DIR)/%.o,$(SUB_FILES))
+OBJS = $(patsubst $(SUB_DIR)/%.f90,$(BUILD_DIR)/%.o,$(SUB_FILES)) \
+		$(patsubst $(SRC_DIR)/%.f90,$(BUILD_DIR)/%.o,$(SRC_FILES))
+		
 
 # Include modules
 INCLUDES = -I$(INCLUDE_DIR)
@@ -72,7 +81,7 @@ exe_release:
 
 # Clean up
 clean:
-	$(RM) $(BUILD_DIR)/*.o $(BUILD_DIR)/run_debug $(BUILD_DIR)/run_release
+	$(RM) $(BUILD_DIR)/*.o $(BUILD_DIR)/run_debug $(BUILD_DIR)/run_release $(INCLUDE_DIR)/*.mod
 
 .PHONY: all clean depend debug release
 

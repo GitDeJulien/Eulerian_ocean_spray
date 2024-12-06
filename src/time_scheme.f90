@@ -1,7 +1,5 @@
 subroutine advance (data, mesh, dt)
 
-    use data_mod
-    use structured_mesh_mod
     use flux_mod
     implicit none
     

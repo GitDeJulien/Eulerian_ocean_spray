@@ -1,7 +1,5 @@
 program EulerianOceanSpray
 
-    use data_mod
-    use structured_mesh_mod
     use init_mod
     implicit none
 

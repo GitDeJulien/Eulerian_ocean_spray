@@ -1,6 +1,5 @@
 module functions_mod
 
-    use precision
     use data_mod
 
     implicit none
