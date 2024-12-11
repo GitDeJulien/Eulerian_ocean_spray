@@ -24,7 +24,9 @@ program EulerianOceanSpray
     !Initialize coefficient
     call initialize_coeff(df, me)
 
-    print*, me%R_coeff
+    !print*, me%T_coeff
+    !print*, me%M_coeff
+    !print*, me%R_coeff
     
     !Initialize de solution
     call initialize_sol(df, me)

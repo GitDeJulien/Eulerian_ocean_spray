@@ -53,11 +53,9 @@ function F_function(data, r_p, v_p, m_p) result(res)
 
     !Local
     real(pr) :: tau_D
-    real(pr) :: fct
 
     tau_D = tau_p(data, r_p, m_p)
-    fct = (m_p/tau_D)*(data%U_air - v_p)
-    res = fct
+    res = (m_p/tau_D)*(data%U_air - v_p)
 
 
 end function F_function
@@ -143,10 +141,10 @@ function M_function(data, r_p, v_p, m_p, m_sel, T_p) result(M_res)
     !Local
     real(pr) :: a, b
 
-    a = (4*pi*r_p*Dv_star_function(data, r_p, v_p)*data%M_w*data%pv_sat_T_air)/&
+    a = (4.0*pi*r_p*Dv_star_function(data, r_p, v_p)*data%M_w*data%pv_sat_T_air)/&
     (data%R_g*data%T_air)
     b = data%Q_RH - (data%T_air/T_p)*EXP(((data%L_v*data%M_w)/data%R_g)&
-    *((1.0_pr/data%T_air) - 1.0_pr/T_p) + (2.0_pr*data%M_w*data%Gamma_p)/&
+    *((1.0_pr/data%T_air) - (1.0_pr/T_p)) + (2.0_pr*data%M_w*data%Gamma_p)/&
     (data%R_g*data%rho_w*r_p*T_p) - &
     (data%I*data%Phi_s*m_sel*(data%M_w/data%M_s))/(m_p-m_sel))
 
