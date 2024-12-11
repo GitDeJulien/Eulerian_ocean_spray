@@ -60,7 +60,7 @@ contains
         type(MeshType), intent(inout) :: mesh
 
         !Local
-        integer  :: i,j,l
+        integer  :: i,j,k,l
         real(pr) :: dr, dm
 
         allocate(mesh%m_sel(data%N_r))
@@ -72,25 +72,27 @@ contains
 
         do i=1,data%N_r !radius
             do j=1,data%N_vx !velocity
-                do l=1,data%N_T !Temperature
+                do k=1,data%N_m
+                    do l=1,data%N_T !Temperature
 
-                    dr = abs(mesh%r_tab(i+1) - mesh%r_tab(i))
-                    dm = abs(mesh%m_tab(i+1) - mesh%m_tab(i))
-                
-                    mesh%m_sel(i) = (4.0/3.0)*pi*(mesh%r_tab(i)+dr/2._pr)**3*data%rho_p*data%Salinity_p/1000.0
-    
-                    mesh%V_coeff(i,j,i,l) = F_function(data, mesh%r_tab(i)+dr/2._pr, &
-                    mesh%vx_tab(j), mesh%m_tab(i)+dm/2._pr)/mesh%m_tab(i)
-
-                    mesh%R_coeff(i,j,i,l) = R_function(data, mesh%r_tab(i)+dr/2._pr, &
-                    mesh%vx_tab(j), mesh%m_tab(i)+dm/2._pr, mesh%m_sel(i), mesh%T_tab(l))
-
-                    mesh%M_coeff(i,j,i,l) = M_function(data, mesh%r_tab(i)+dr/2._pr, &
-                    mesh%vx_tab(j), mesh%m_tab(i)+dm/2._pr, mesh%m_sel(i), mesh%T_tab(l))
+                        dr = abs(mesh%r_tab(i+1) - mesh%r_tab(i))
+                        dm = abs(mesh%m_tab(k+1) - mesh%m_tab(k))
                     
-                    mesh%T_coeff(i,j,i,l) = T_function(data, mesh%r_tab(i)+dr/2._pr, &
-                    mesh%vx_tab(j), mesh%m_tab(i)+dm/2._pr, mesh%m_sel(i), mesh%T_tab(l))
-    
+                        mesh%m_sel(i) = (4._pr/3._pr)*pi*(mesh%r_tab(i)+dr/2._pr)**3*data%rho_p*data%Salinity_p/1000._pr
+        
+                        mesh%V_coeff(i,j,k,l) = F_function(data, mesh%r_tab(i)+dr/2._pr, &
+                        mesh%vx_tab(j)+data%dvx/2._pr, mesh%m_tab(k)+dm/2._pr)/(mesh%m_tab(k)+dm/2._pr)
+
+                        mesh%R_coeff(i,j,k,l) = R_function(data, mesh%r_tab(1)+dr/2._pr, &
+                        mesh%vx_tab(j)+data%dvx/2._pr, mesh%m_tab(k)+dm/2._pr, mesh%m_sel(i), mesh%T_tab(l)+data%dT/2._pr)
+
+                        mesh%M_coeff(i,j,k,l) = M_function(data, mesh%r_tab(i)+dr/2._pr, &
+                        mesh%vx_tab(j)+data%dvx/2._pr, mesh%m_tab(k)+dm/2._pr, mesh%m_sel(i), mesh%T_tab(l)+data%dT/2._pr)
+                        
+                        mesh%T_coeff(i,j,k,l) = T_function(data, mesh%r_tab(i)+dr/2._pr, &
+                        mesh%vx_tab(j)+data%dvx/2._pr, mesh%m_tab(k)+dm/2._pr, mesh%m_sel(i), mesh%T_tab(l)+data%dT/2._pr)
+        
+                    enddo
                 enddo
             enddo
         enddo

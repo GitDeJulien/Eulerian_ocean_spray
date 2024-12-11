@@ -13,7 +13,7 @@ M_w = 18.0160e-3
 M_s = 58.443e-3
 M_a = 28.9644e-3
 R_g = 8.314472
-p_0 = 101325.0
+pression_0 = 101325.0
 Salinity_w = 34.0
 Salinity_p = 34.0
 Delta_v = 8e-8
@@ -35,14 +35,14 @@ N_T = 9
 T_min = 12.0
 T_max = 21.0
 N_vx = 10
-vx_min = 0.0
+vx_min = -1.0
 vx_max = 16.0
 N_vy = 10
 vy_min = -1.0
 vy_max = 16.0
 N_r = 20
-r_min = 10e-8
-r_max = 10e-3
+r_min = 1e-7
+r_max = 1e-2
 
 [TIME]
 time_scheme_key = 1

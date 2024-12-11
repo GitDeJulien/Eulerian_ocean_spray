@@ -6,7 +6,8 @@ program EulerianOceanSpray
     character(len=256) :: filepath
     type(DataType)     :: df
     type(MeshType)     :: me
-    ! integer :: i,j,l
+    ! integer :: i
+    integer :: i,j,k,l
     ! real(pr)           :: tn, dt
     ! integer            :: nt
 
@@ -23,11 +24,25 @@ program EulerianOceanSpray
 
     !Initialize coefficient
     call initialize_coeff(df, me)
-
-    print*, me%R_coeff
     
     !Initialize de solution
     call initialize_sol(df, me)
+
+    ! do i=1,df%N_T+1 
+    !     print*, me%T_tab(i) 
+    ! end do
+
+    do i=1,df%N_r !radius
+        do j=1,df%N_vx !velocity
+            do k=1,df%N_m
+                do l=1,df%N_T !Temperature
+                    if (me%SOL(i,j,i,l) > 1e-8) print*, me%SOL(i,j,i,l)
+                    ! print*, me%SOL(i,j,k,l)
+
+                enddo
+            enddo
+        enddo
+    enddo
 
     ! print*,"r_init"
     ! print*,me%r_tab

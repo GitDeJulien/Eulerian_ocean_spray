@@ -14,7 +14,7 @@ subroutine advance (data, mesh, dt)
     real(pr) :: dt
 
     !Local
-    integer  :: i,j,l
+    integer  :: i,j,k,l
     real(pr) :: R, M, T, V, som
     real(pr) :: dr, dm
 
@@ -22,21 +22,23 @@ subroutine advance (data, mesh, dt)
 
     do i=1,data%N_r !radius
         do j=1,data%N_vx !velocity
-            do l=1,data%N_T !Temperature
+            do k=1,data%N_m
+                do l=1,data%N_T !Temperature
 
-                dr = abs(mesh%r_tab(i+1) - mesh%r_tab(i))
-                dm = abs(mesh%m_tab(i+1) - mesh%m_tab(i))
-            
-                V = abs(mesh%V_coeff(i,j,i,l))
-                R = abs(mesh%R_coeff(i,j,i,l))
-                M = abs(mesh%M_coeff(i,j,i,l))
-                T = abs(mesh%T_coeff(i,j,i,l))
+                    dr = abs(mesh%r_tab(i+1) - mesh%r_tab(i))
+                    dm = abs(mesh%m_tab(k+1) - mesh%m_tab(k))
+                
+                    V = abs(mesh%V_coeff(i,j,k,l))
+                    R = abs(mesh%R_coeff(i,j,k,l))
+                    M = abs(mesh%M_coeff(i,j,k,l))
+                    T = abs(mesh%T_coeff(i,j,k,l))
 
-                som = min(data%dvx/V, dr/R, dm/M, data%dT/T)
-                print*, "T=",T
+                    som = min(data%dvx/V, dr/R, dm/M, data%dT/T)
+                    print*, "T=",T
 
-                if (dt > som) dt = som
+                    if (dt > som) dt = som
 
+                enddo
             enddo
         enddo
     enddo
@@ -45,19 +47,6 @@ subroutine advance (data, mesh, dt)
     SELECT CASE(data%time_scheme_key)
     CASE(1)
         mesh%SOL = mesh%SOL - dt*vector_flux(data, mesh)
-<<<<<<< HEAD
-        ! do i=1,data%N_r !radius
-        !     do j=1,data%N_vx !velocity
-        !         do l=1,data%N_T !Temperature
-                
-        !             mesh%SOL(i,j,i,l) = mesh%SOL(i,j,i,l) - 
-        !               dt*(fonction_flux_de_maïlys(data, ud, um) + fonction_flux_de_maïlys(data, um, ug))
-                
-        !         enddo
-        !     enddo
-        ! enddo
-=======
->>>>>>> main
     CASE(2)
         print*,"No other time scheme have been implemented for the moment..."
 

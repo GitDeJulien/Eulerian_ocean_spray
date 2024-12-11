@@ -114,7 +114,7 @@ contains
         call parse_toml(filename, "M_s", data%M_s)
         call parse_toml(filename, "M_a", data%M_a)
         call parse_toml(filename, "R_g", data%R_g)
-        call parse_toml(filename, "p_0", data%p_0)
+        call parse_toml(filename, "pression_0", data%p_0)
         call parse_toml(filename, "Salinity_w", data%Salinity_w)
         call parse_toml(filename, "Salinity_p", data%Salinity_p)
         call parse_toml(filename, "Delta_v", data%Delta_v)
