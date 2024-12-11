@@ -1,14 +1,12 @@
 program EulerianOceanSpray
 
-    use data_mod
-    use structured_mesh_mod
     use init_mod
     implicit none
 
     character(len=256) :: filepath
     type(DataType)     :: df
     type(MeshType)     :: me
-    integer :: i,j,l
+    ! integer :: i,j,l
     ! real(pr)           :: tn, dt
     ! integer            :: nt
 
@@ -22,31 +20,36 @@ program EulerianOceanSpray
 
     !Initialize the mesh
     call init_mesh(df, me)
+
+    !Initialize coefficient
+    call initialize_coeff(df, me)
+
+    print*, me%R_coeff
     
     !Initialize de solution
     call initialize_sol(df, me)
 
-    print*,"r_init"
-    print*,me%r_tab
-    print*,"vx_init"
-    print*,me%vx_tab
-    print*,"m_init"
-    print*,me%m_tab
-    print*,"T_init"
-    print*,me%T_tab
-    print*, "SOL!=0.0"
+    ! print*,"r_init"
+    ! print*,me%r_tab
+    ! print*,"vx_init"
+    ! print*,me%vx_tab
+    ! print*,"m_init"
+    ! print*,me%m_tab
+    ! print*,"T_init"
+    ! print*,me%T_tab
+    ! print*, "SOL!=0.0"
 
-    do i=1,df%N_r !radius
-        do j=1,df%N_vx !velocity
-            do l=1,df%N_T !Temperature
+    ! do i=1,df%N_r !radius
+    !     do j=1,df%N_vx !velocity
+    !         do l=1,df%N_T !Temperature
             
-                if (me%SOL(i,j,i,l) > 1e-8) print*, me%SOL(i,j,i,l)
+    !             if (me%SOL(i,j,i,l) > 1e-8) print*, me%SOL(i,j,i,l)
 
-            enddo
-        enddo
-    enddo
+    !         enddo
+    !     enddo
+    ! enddo
 
-    !TODO > Boucle en temps + calcul moyenne
+    ! !TODO > Boucle en temps + calcul moyenne
     ! tn = df%t0
     ! do nt=1,df%ntime
     !     call advance(df, me, dt)

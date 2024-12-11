@@ -1,12 +1,11 @@
 module functions_mod
 
-    use precision
     use data_mod
 
     implicit none
 
     private :: f_v, Dv_star_function, ka_star_function
-    public  :: Re_p, tau_p, tau_t, F_function, M_coeff, R_coeff, T_coeff, b_function
+    public  :: Re_p, tau_p, tau_t, F_function, M_function, R_function, T_function, b_function
 
 contains
 
@@ -110,8 +109,8 @@ function ka_star_function(data, r_p, v_p) result(ka_star)
 
     !In
     type(DataType), intent(in) :: data
-    real(pr), intent(in)         :: r_p
-    real(pr), intent(in) :: v_p 
+    real(pr), intent(in)       :: r_p
+    real(pr), intent(in)       :: v_p 
 
     !Out
     real(pr) :: ka_star
@@ -131,7 +130,7 @@ function ka_star_function(data, r_p, v_p) result(ka_star)
 end function ka_star_function
 
 
-function M_coeff(data, r_p, v_p, m_p, m_sel, T_p) result(M_res)
+function M_function(data, r_p, v_p, m_p, m_sel, T_p) result(M_res)
 
     !In
     type(DataType), intent(in) :: data
@@ -153,9 +152,9 @@ function M_coeff(data, r_p, v_p, m_p, m_sel, T_p) result(M_res)
 
     M_res = a*b
 
-end function M_coeff
+end function M_function
 
-function R_coeff(data, r_p, v_p, m_p, m_sel, T_p) result(R_res)
+function R_function(data, r_p, v_p, m_p, m_sel, T_p) result(R_res)
 
     !In
     type(DataType), intent(in) :: data
@@ -165,12 +164,12 @@ function R_coeff(data, r_p, v_p, m_p, m_sel, T_p) result(R_res)
     !Out
     real(pr) :: R_res
 
-    R_res = M_coeff(data,r_p, v_p, m_p, m_sel, T_p) / &
+    R_res = M_function(data,r_p, v_p, m_p, m_sel, T_p) / &
     (4.0_pr*pi*r_p**2*data%rho_w)
 
-end function R_coeff
+end function R_function
 
-function T_coeff(data, r_p, v_p, m_p, m_sel, T_p) result(T_res)
+function T_function(data, r_p, v_p, m_p, m_sel, T_p) result(T_res)
 
     !In
     type(DataType), intent(in) :: data
@@ -187,9 +186,9 @@ function T_coeff(data, r_p, v_p, m_p, m_sel, T_p) result(T_res)
     (data%T_air - T_p))/(m_p*data%c_p_s)
 
     T_res = a + (data%L_v/(m_p*data%c_p_s))*&
-    M_coeff(data,r_p, v_p, m_p, m_sel, T_p)
+    M_function(data,r_p, v_p, m_p, m_sel, T_p)
 
-end function T_coeff
+end function T_function
 
 function b_function(data, r_p, v_p, m_p, m_sel, T_p) result(b_res)
 
@@ -201,7 +200,7 @@ function b_function(data, r_p, v_p, m_p, m_sel, T_p) result(b_res)
     !Out
     real(pr) :: b_res
 
-    b_res = data%T_air + (data%L_v*M_coeff(data, r_p, v_p, m_p, m_sel, T_p)/(4*pi*r_p*ka_star_function(data, r_p, v_p)))
+    b_res = data%T_air + (data%L_v*M_function(data, r_p, v_p, m_p, m_sel, T_p)/(4*pi*r_p*ka_star_function(data, r_p, v_p)))
 
 end function b_function
 
