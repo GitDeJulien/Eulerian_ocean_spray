@@ -166,7 +166,7 @@ contains
         data%p_air = data%p_0-data%rho_air*gravity*10.0
         data%pv_sat_T_air = 2.33e3
         data%L_v = (25.00895-0.02274*(data%T_air-273.15))*1e5
-        data%D_v = 2.11e-5*(data%T_air-273.15)**1.94*(1013.25/(data%p_air/100.0))
+        data%D_v = 2.11e-5*(data%T_air/273.15)**1.94*(1013.25/(data%p_air/100.0))
         data%Gamma_p = (75.63 - 0.144*data%T_p_0_celcius + 0.221*data%Salinity_w)*1e-3
         data%Phi_s = 0.91154614+1.7317496707e-4*data%Salinity_p+4.7616058412e-6*data%Salinity_p**2-&
         & 9.2541509027e-9*data%Salinity_p**3+7.3475024678e-12*data%Salinity_p**4

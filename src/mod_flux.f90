@@ -46,12 +46,12 @@ contains
                     do l=1,data%N_T !Temperature
 
                         dr = abs(mesh%r_tab(i+1) - mesh%r_tab(i))
-                        dm = abs(mesh%m_tab(i+1) - mesh%m_tab(i))
+                        dm = abs(mesh%m_tab(k+1) - mesh%m_tab(k))
                     
-                        V = mesh%V_coeff(i,j,i,l)
-                        R = mesh%R_coeff(i,j,i,l)
-                        M = mesh%M_coeff(i,j,i,l)
-                        T = mesh%T_coeff(i,j,i,l)
+                        V = mesh%V_coeff(i,j,k,l)
+                        R = mesh%R_coeff(i,j,k,l)
+                        M = mesh%M_coeff(i,j,k,l)
+                        T = mesh%T_coeff(i,j,k,l)
 
                         !radius
                         if(i==1) then 
@@ -101,7 +101,7 @@ contains
                             Im = upwind_flux(mesh%SOL(i,j,k,l-1),mesh%SOL(i,j,k,l),T)
                         end if
 
-                        flux(i,j,i,l) = (Fp-Fm)/dr + (Gp-Gm)/data%dvx + (Hp-Hm)/dm + (Ip-Im)/data%dT 
+                        flux(i,j,k,l) = (Fp-Fm)/dr + (Gp-Gm)/data%dvx + (Hp-Hm)/dm + (Ip-Im)/data%dT 
                     end do
                 end do
             end do

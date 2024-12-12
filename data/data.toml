@@ -47,5 +47,5 @@ r_max = 1e-2
 [TIME]
 time_scheme_key = 1
 t0 = 0.0
-ntime = 100
-cfl = 0.8
+ntime = 10000
+cfl = 1.0

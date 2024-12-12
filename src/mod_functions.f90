@@ -182,7 +182,7 @@ function T_function(data, r_p, v_p, m_p, m_sel, T_p) result(T_res)
     !Local
     real(pr) :: a
 
-    a = (4.0_pr*pi*ka_star_function(data, r_p, v_p)*&
+    a = (4.0_pr*r_p*pi*ka_star_function(data, r_p, v_p)*&
     (data%T_air - T_p))/(m_p*data%c_p_s)
 
     T_res = a + (data%L_v/(m_p*data%c_p_s))*&

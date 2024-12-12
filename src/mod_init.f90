@@ -83,7 +83,7 @@ contains
                         mesh%V_coeff(i,j,k,l) = F_function(data, mesh%r_tab(i)+dr/2._pr, &
                         mesh%vx_tab(j)+data%dvx/2._pr, mesh%m_tab(k)+dm/2._pr)/(mesh%m_tab(k)+dm/2._pr)
 
-                        mesh%R_coeff(i,j,k,l) = R_function(data, mesh%r_tab(1)+dr/2._pr, &
+                        mesh%R_coeff(i,j,k,l) = R_function(data, mesh%r_tab(i)+dr/2._pr, &
                         mesh%vx_tab(j)+data%dvx/2._pr, mesh%m_tab(k)+dm/2._pr, mesh%m_sel(i), mesh%T_tab(l)+data%dT/2._pr)
 
                         mesh%M_coeff(i,j,k,l) = M_function(data, mesh%r_tab(i)+dr/2._pr, &

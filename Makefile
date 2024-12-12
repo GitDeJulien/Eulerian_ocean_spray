@@ -13,7 +13,7 @@ INCLUDE_DIR = ./include
 BUILD_DIR = ./build
 
 # Flags for debug and release builds
-DEBUG_FFLAGS = -g -O0 -Wall -Wextra -Werror
+DEBUG_FFLAGS = -g -O0 -Wall -Wextra 
 RELEASE_FFLAGS = -O2 -Wall -Wextra -Werror
 
 # Automatically find all source files (needed to be in the good order in function of dependancies)
