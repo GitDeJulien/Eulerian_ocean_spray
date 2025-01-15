@@ -22,9 +22,6 @@ program EulerianOceanSpray
 
     !Initialize the mesh
     call init_mesh(df, mesh)
-
-    !Initialize coefficient
-    !call initialize_coeff(df, me)
     
     !Initialize de solution
     call initialize_sol(df, mesh)

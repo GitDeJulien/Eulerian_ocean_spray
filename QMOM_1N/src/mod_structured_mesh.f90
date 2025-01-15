@@ -11,7 +11,6 @@ module structured_mesh_mod
         ! real(pr), dimension(:), allocatable :: vx_tab
         real(pr), dimension(:), allocatable :: m_sel
 
-        ! real(pr), dimension(:,:,:,:), allocatable :: SOL
 
         ! real(pr), dimension(:,:,:,:), allocatable :: R_coeff, T_coeff, M_coeff, V_coeff
         real(pr), dimension(:), allocatable :: n_bar, u_bar, R_coeff
@@ -76,13 +75,10 @@ contains
         !In
         type(MeshType), intent(inout) :: mesh
 
-        ! deallocate(mesh%x_tab)
         deallocate(mesh%r_tab)
         ! deallocate(mesh%m_tab)
-        ! deallocate(mesh%vx_tab)
         ! deallocate(mesh%T_tab)
 
-        ! deallocate(mesh%SOL)
 
     end subroutine free_mesh
 

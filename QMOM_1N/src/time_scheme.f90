@@ -26,27 +26,6 @@ contains
 
         dt = 10._pr
 
-        ! do i=1,data%N_r !radius
-        !     do j=1,data%N_vx !velocity
-        !         do l=1,data%N_T !Temperature
-
-        !             dr = abs(mesh%r_tab(i+1) - mesh%r_tab(i))
-        !             dm = abs(mesh%m_tab(i+1) - mesh%m_tab(i))
-                
-        !             V = abs(mesh%V_coeff(i,j,i,l))
-        !             R = abs(mesh%R_coeff(i,j,i,l))
-        !             M = abs(mesh%M_coeff(i,j,i,l))
-        !             T = abs(mesh%T_coeff(i,j,i,l))
-
-        !             som = min(data%dvx/V, dr/R, dm/M, data%dT/T)
-        !             print*, "T=",T
-
-        !             if (dt > som) dt = som
-
-        !         enddo
-        !     enddo
-        ! enddo
-
         ! -- dt computing
         do i=1,data%N_r !radius
             dr = abs(mesh%r_tab(i+1) - mesh%r_tab(i))
