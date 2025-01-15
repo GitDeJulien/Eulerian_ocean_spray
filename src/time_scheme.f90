@@ -1,57 +1,63 @@
-subroutine advance (data, mesh, dt)
+module time_mod
 
-    use flux_mod
     implicit none
     
+contains
 
-    !In
-    type(DataType), intent(in) :: data
+    subroutine advance (data, mesh, dt)
 
-    !Inout
-    type(MeshType), intent(inout) :: mesh
+        use flux_mod
+        implicit none
+        
 
-    !Out
-    real(pr) :: dt
+        !In
+        type(DataType), intent(in) :: data
 
-    !Local
-    integer  :: i,j,l
-    real(pr) :: R, M, T, V, som
-    real(pr) :: dr, dm
+        !Inout
+        type(MeshType), intent(inout) :: mesh
 
-    dt = 10._pr
+        !Out
+        real(pr) :: dt
 
-    do i=1,data%N_r !radius
-        do j=1,data%N_vx !velocity
-            do l=1,data%N_T !Temperature
+        !Local
+        integer  :: i,j,l
+        real(pr) :: R, M, T, V, som
+        real(pr) :: dr, dm
 
-                dr = abs(mesh%r_tab(i+1) - mesh%r_tab(i))
-                dm = abs(mesh%m_tab(i+1) - mesh%m_tab(i))
-            
-                V = abs(mesh%V_coeff(i,j,i,l))
-                R = abs(mesh%R_coeff(i,j,i,l))
-                M = abs(mesh%M_coeff(i,j,i,l))
-                T = abs(mesh%T_coeff(i,j,i,l))
+        dt = 10._pr
 
-                som = min(data%dvx/V, dr/R, dm/M, data%dT/T)
-                print*, "T=",T
+        do i=1,data%N_r !radius
+            do j=1,data%N_vx !velocity
+                do l=1,data%N_T !Temperature
 
-                if (dt > som) dt = som
+                    dr = abs(mesh%r_tab(i+1) - mesh%r_tab(i))
+                    dm = abs(mesh%m_tab(i+1) - mesh%m_tab(i))
+                
+                    V = abs(mesh%V_coeff(i,j,i,l))
+                    R = abs(mesh%R_coeff(i,j,i,l))
+                    M = abs(mesh%M_coeff(i,j,i,l))
+                    T = abs(mesh%T_coeff(i,j,i,l))
 
+                    som = min(data%dvx/V, dr/R, dm/M, data%dT/T)
+                    print*, "T=",T
+
+                    if (dt > som) dt = som
+
+                enddo
             enddo
         enddo
-    enddo
 
 
-    SELECT CASE(data%time_scheme_key)
-    CASE(1)
-        mesh%SOL = mesh%SOL - dt*vector_flux(data, mesh)
-    CASE(2)
-        print*,"No other time scheme have been implemented for the moment..."
+        SELECT CASE(data%time_scheme_key)
+        CASE(1)
+            mesh%SOL = mesh%SOL - dt*vector_flux(data, mesh)
+        CASE(2)
+            print*,"No other time scheme have been implemented for the moment..."
 
-    END SELECT
-
-
+        END SELECT
 
 
+    end subroutine
+    
+end module time_mod
 
-end subroutine

@@ -43,16 +43,16 @@ contains
             mesh%x_tab(i) = data%dx * (i-1) + data%x_min !Space
         end do
 
-        mesh%r_tab = logspace(data%r_min, data%r_max, data%N_r)
+        mesh%r_tab = logspace(data%r_min, data%r_max, data%N_r+1)
 
         do i=1,data%N_vx+1
-            mesh%vx_tab(i) = data%vx_min + i*data%dvx !Velocity
+            mesh%vx_tab(i) = data%vx_min + (i-1)*data%dvx !Velocity
         enddo
 
-        mesh%m_tab = 4.0_pr/3.0_pr*pi*data%rho_p*mesh%r_tab !Mass (radius dependant)
+        mesh%m_tab = 4.0_pr/3.0_pr*pi*data%rho_p*mesh%r_tab**3 !Mass (radius dependant)
 
         do i=1,data%N_T+1
-            mesh%T_tab(i) = data%T_min + i*data%dT !Temperature
+            mesh%T_tab(i) = data%T_min + (i-1)*data%dT !Temperature
         enddo
 
     end subroutine init_mesh

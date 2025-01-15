@@ -141,7 +141,7 @@ function M_function(data, r_p, v_p, m_p, m_sel, T_p) result(M_res)
     !Local
     real(pr) :: a, b
 
-    a = (4.0*pi*r_p*Dv_star_function(data, r_p, v_p)*data%M_w*data%pv_sat_T_air)/&
+    a = (4.d0*pi*r_p*Dv_star_function(data, r_p, v_p)*data%M_w*data%pv_sat_T_air)/&
     (data%R_g*data%T_air)
     b = data%Q_RH - (data%T_air/T_p)*EXP(((data%L_v*data%M_w)/data%R_g)&
     *((1.0_pr/data%T_air) - (1.0_pr/T_p)) + (2.0_pr*data%M_w*data%Gamma_p)/&
@@ -180,7 +180,7 @@ function T_function(data, r_p, v_p, m_p, m_sel, T_p) result(T_res)
     !Local
     real(pr) :: a
 
-    a = (4.0_pr*pi*ka_star_function(data, r_p, v_p)*&
+    a = (4.0_pr*r_p*pi*ka_star_function(data, r_p, v_p)*&
     (data%T_air - T_p))/(m_p*data%c_p_s)
 
     T_res = a + (data%L_v/(m_p*data%c_p_s))*&
