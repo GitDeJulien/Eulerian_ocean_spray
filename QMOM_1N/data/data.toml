@@ -1,0 +1,51 @@
+#> Physical and numerical Data
+#> Eulerian approch
+
+[Usefull path]
+output_path = ../output
+
+[PHYSICAL PARMAETERS]
+U_air = 15.0
+T_air_celcius = 18.0
+T_p_0_celcius = 20.0
+Q_RH = 0.75
+M_w = 18.0160e-3
+M_s = 58.443e-3
+M_a = 28.9644e-3
+R_g = 8.314472
+p_0 = 101325.0
+Salinity_w = 34.0
+Salinity_p = 34.0
+Delta_v = 8e-8
+alpha_c = 0.06
+Delta_T = 2.16e-7
+alpha_T = 0.7
+I = 2
+
+[NUMERICAL PARMAETERS]
+dim = 1
+cas = 1
+Lx = 1e-1
+Ly = 0.5e-1
+Nx = 20
+Ny = 10
+x_min = 0.0
+y_min = 0.0
+N_T = 9
+T_min = 12.0
+T_max = 21.0
+N_vx = 10
+vx_min = -1.0
+vx_max = 16.0
+N_vy = 10
+vy_min = -1.0
+vy_max = 16.0
+N_r = 100
+r_min = 1e-7
+r_max = 1e-2
+
+[TIME]
+time_scheme_key = 1
+t0 = 0.0
+ntime = 2000
+cfl = 0.8
