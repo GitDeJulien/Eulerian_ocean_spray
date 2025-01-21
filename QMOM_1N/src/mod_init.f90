@@ -21,26 +21,31 @@ contains
         type(MeshType), intent(inout) :: mesh
 
         !Local
-        integer  :: i
-        ! integer  :: T_loc, v_loc
+        integer  :: i,j,k
+        integer  :: v_loc
         real(pr) :: dm
 
-        ! v_loc = find_best_loc(mesh%vx_tab, 0.0_pr)
+        v_loc = find_best_loc(mesh%vx_tab, 0.0_pr)
 
-        ! T_loc = find_best_loc(mesh%T_tab, data%T_p_0)
-
-        allocate(mesh%n_bar(data%N_r))
-        allocate(mesh%u_bar(data%N_r))
+        allocate(mesh%n_bar(data%N_r, data%N_T))
+        allocate(mesh%u_bar(data%N_r, data%N_T))
 
         mesh%n_bar = 0.d0
         mesh%u_bar = 0.d0
 
         do i=1,data%N_r !radius
             dm = abs(mesh%m_tab(i+1) - mesh%m_tab(i))
-            mesh%n_bar(i) = dCd_r(dFdr(mesh%r_tab(i)), Vdp(vp4(mesh%r_tab(i))))/dm
+            do j=1,data%N_vx !velocity
+                do k=1,data%N_T
+                    if ( j == v_loc) then
+                        mesh%n_bar(i,k) = dCd_r(dFdr(mesh%r_tab(i)), Vdp(vp4(mesh%r_tab(i))))/&
+                        (dm*data%dT*data%dvx)
+                    endif
+                enddo
+            enddo
         enddo
 
-        print*, mesh%n_bar
+        !print*, mesh%n_bar
 
     end subroutine initialize_sol
 

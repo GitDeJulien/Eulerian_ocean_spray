@@ -84,6 +84,11 @@ exe_release:
 clean:
 	$(RM) $(BUILD_DIR)/*.o $(BUILD_DIR)/run_debug $(BUILD_DIR)/run_release $(INCLUDE_DIR)/*.mod
 
+clear:
+	$(RM) output/sol/*.dat
+	$(RM) output/other/*.dat
+
+
 .PHONY: all clean depend debug release
 
 

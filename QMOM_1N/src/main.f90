@@ -25,9 +25,11 @@ program EulerianOceanSpray
     
     !Initialize de solution
     call initialize_sol(df, mesh)
-    call save_approx_sol(df, mesh%r_tab, mesh%n_bar, mesh%u_bar, 0)
+    call save_approx_sol(df, mesh%r_tab, mesh%T_tab, mesh%n_bar, mesh%u_bar, 0)
+    call save_mesh(mesh%r_tab, "radius")
+    call save_mesh(mesh%T_tab, "Temperature")
 
-    open(newunit=io, file="output/sol/time.dat", status="replace", action="write", iostat=ios)
+    open(newunit=io, file="output/other/tn.dat", status="replace", action="write", iostat=ios)
     if (ios /= 0) then
         print *, 'Error opening file: ', " output/sol/time.dat"
         stop
@@ -38,10 +40,11 @@ program EulerianOceanSpray
     tn = df%t0
     do nt=1,df%ntime
         call advance(df, mesh, dt)
-        print*, "diff =", abs(sum(mesh%u_bar(:)/df%N_r) - df%U_air)
+        !print*, "diff =", abs(sum(mesh%u_bar(:)/df%N_r) - df%U_air)
         tn = tn + dt
+        print*, "tn=", tn
         write(io,*) tn
-        call save_approx_sol(df, mesh%r_tab, mesh%n_bar, mesh%u_bar, nt)
+        call save_approx_sol(df, mesh%r_tab, mesh%T_tab, mesh%n_bar, mesh%u_bar, nt)
     enddo
 
     print*, 'tfinal =', tn

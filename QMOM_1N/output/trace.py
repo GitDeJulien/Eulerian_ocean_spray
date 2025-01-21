@@ -1,19 +1,24 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+N_T = 20
+N_r = 100
+
 u_bar_1 = []
 u_bar_2 = []
 u_bar_3 = []
 u_bar_4 = []
 u_bar_5 = []
-LOAD_TIME = np.loadtxt('sol/time.dat')
-LOAD_DAT_0 = np.loadtxt('sol/sol.0.dat')
+LOAD_TIME = np.loadtxt('other/tn.dat')
+LOAD_TEMPERATURE = np.loadtxt('other/Temperature.mesh.dat')
+LOAD_RADIUS = np.loadtxt('other/radius.mesh.dat')
 
-r1 = LOAD_DAT_0[10,0]
-r2 = LOAD_DAT_0[20,0]
-r3 = LOAD_DAT_0[50,0]
-r4 = LOAD_DAT_0[60,0]
-r5 = LOAD_DAT_0[70,0]
+
+r1 = LOAD_RADIUS[10]
+r2 = LOAD_RADIUS[20]
+r3 = LOAD_RADIUS[50]
+r4 = LOAD_RADIUS[60]
+r5 = LOAD_RADIUS[70]
 
 for i in range(0,2001,1):
     LOAD_DAT = np.loadtxt(f'sol/sol.{i}.dat')

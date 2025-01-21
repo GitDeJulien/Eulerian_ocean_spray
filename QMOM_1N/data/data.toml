@@ -31,7 +31,7 @@ Nx = 20
 Ny = 10
 x_min = 0.0
 y_min = 0.0
-N_T = 9
+N_T = 20
 T_min = 12.0
 T_max = 21.0
 N_vx = 10
@@ -47,5 +47,5 @@ r_max = 1e-2
 [TIME]
 time_scheme_key = 1
 t0 = 0.0
-ntime = 2000
+ntime = 100
 cfl = 0.8
