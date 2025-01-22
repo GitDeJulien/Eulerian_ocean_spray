@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fluid Mechanics Research</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <header class="header">
+
+        <div class="container">
+            <h1>Exploring Numerical Methods for Transport and Evaporation of Sea Spray</h1>
+            <p>Applied Mathematics and Numerical Simulation work for a 2nd year master project</p>
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="#context">Context</a>
+            <a href="#theory">Theory</a>
+            <a href="#lagrange">Lagrangian Model</a>
+            <a href="#euler">Eulerian Model</a>
+            <a href="#results">Key Results</a>
+            <a href="#code">GitHub Repository</a>
+            <div class="dropdown">
+                <img class="logo_lang" src=global.png alt="logo langue" height="15" width="15">
+                <button>En</button>
+                <div class="dropdown-content">
+                    <a href="index.html">English</a>
+                    <a href="index_fr.html">French</a>
+                </div>
+            </div>
+        </div>
+
+    </nav>
+
+    <main class="container">
+        <section id="context" class="section">
+            <h2>Context</h2>
+            <p>
+                Long-term climate and special extreme events evolution, such as tropical cyclones, are widly studied for more accurate predictions. In this context the estimates of sea spray behavior has revealed to be impactfull. Moreover in recent years, it has been suggested that these estimates need to incorporate an accurate description of the transport of sea spray within the atmospheric boundary layer and the drop-induced fluxes of momentum, heat and moisture, so that the resulting effects on atmospheric flow can be evaluated.
+            </p>
+            <p>
+                On the basis of <b>Fabirce Veron</b>'s and <b>Luc Mieussens</b>'s paper <a href="https://www.cambridge.org/core/journals/journal-of-fluid-mechanics/article/abs/an-eulerian-model-for-sea-spray-transport-and-evaporation/625CC4F0880F43189F746387EA43E770" target="_blank" class="link">An Eulerian model for sea spray transport and evaporation</a>, we numerically studied the <a href="#lagrange" class="link_section">Lagrangian</a> and the <a href="#euler" class="link_section">Eulerian</a> modele using different methodes detailed in the corresponding sections. 
+            </p>
+        </section>
+        <section id="theory" class="section">
+            <h2>Theoretical Background</h2>
+            <p>
+                Here we present a brief theoretical foundation for the study:
+            </p>
+            <p>
+                The Navier-Stokes equations for incompressible flow are given by:
+            </p>
+            <div class="equation">
+                \[
+                \frac{\partial \mathbf{u}}{\partial t} + (\mathbf{u} \cdot \nabla) \mathbf{u} = -\nabla p + \nu \nabla^2 \mathbf{u}, \quad \nabla \cdot \mathbf{u} = 0
+                \]
+            </div>
+            <p>
+                Where \( \mathbf{u} \) is the velocity field, \( p \) is the pressure, and \( \nu \) is the kinematic viscosity.
+            </p>
+        </section>
+
+        <section id="lagrange" class="section">
+            <h2>Lagrangian Model</h2>
+        </section>
+
+        <section id="euler" class="section">
+            <h2>Eulerian Model</h2>
+        </section>
+
+        <section id="results" class="section">
+            <h2>Key Results</h2>
+            <p>
+                Below are visualizations of the simulation results:
+            </p>
+            <div class="images-grid">
+                <img src="images/result1.png" alt="Result 1">
+                <img src="images/result2.png" alt="Result 2">
+                <img src="images/result3.png" alt="Result 3">
+            </div>
+        </section>
+
+        <section id="code" class="section">
+            <h2>GitHub Repository</h2>
+            <p>
+                The codebase for this research work can be found on GitHub:
+            </p>
+            <a href="https://github.com/baahirham-MMK/Projet_embruns" target="_blank" class="btn">View Repository</a>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Fluid Mechanics Research | Designed for academic purposes</p>
+            <a href="https://enseirb-matmeca.bordeaux-inp.fr/fr">School Website</a>
+        </div>
+    </footer>
+</body>
+</html>
