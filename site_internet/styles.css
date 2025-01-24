@@ -1,153 +1,242 @@
-/* Reset & Basic Styles */
-body, h1, h2, p, a {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-}
-body {
-    background-color: #f9f9f9;
-    color: #333;
-}
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* Header */
-.header {
-    background-color: #0075bf;
-    color: white;
-    text-align: center;
-    padding: 1.5rem 0;
-}
-.header h1 {
-    margin-bottom: 0.5rem;
-}
-.header p {
-    font-size: 1.2rem;
-}
-
-/* Navbar */
-.navbar {
-    background-color: #004876;
-    padding: 0.5rem 0;
-}
-.navbar a {
-    color: white;
-    text-decoration: none;
-    margin-right: 1rem;
-}
-.navbar a:hover {
-    text-decoration: underline;
-}
-
-/* Sections */
-.section {
-    margin: 2rem 0;
-}
-.section h2 {
-    margin-bottom: 1rem;
-    color: #0075bf;
-}
-.section p {
-    margin-bottom: 1rem;
-}
-
-/* Images Grid */
-.images-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
-}
-.images-grid img {
-    width: 100%;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.link {
-    font-weight: bold;
-    font-style: italic;
-    color: black;
-}
-
-.link_section {
-    color: black;
-}
-
-/* Button */
-.btn {
-    display: inline-block;
-    background-color: #0075bf;
-    color: white;
-    padding: 0.8rem 1.5rem;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 1rem;
-    margin-top: 1rem;
-}
-.btn:hover {
-    background-color: #004876;
-}
-
-/* Footer */
-.footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 1rem 0;
-    margin-top: 2rem;
-}
-
-.footer a {
-    text-decoration: none;
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown button {
-    background-color: #002b5c;
-    color: white;
-    border: none;
-    padding: 10px;
-    font-size: 1rem;
-    cursor: pointer;
-}
-
-.dropdown button:hover {
-    background-color: #0075bf;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    background-color: white;
-    min-width: 100px;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 10px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {
-    background-color: #ddd;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-.logo_lang {
-    padding-left: 25px;
-}
+/* ===========================
+   RESET & BASIC STYLES
+   =========================== */
+   *,
+   *::before,
+   *::after {
+       margin: 0;
+       padding: 0;
+       box-sizing: border-box;
+   }
+   
+   body {
+       font-family: Arial, sans-serif;
+       background-color: #f9f9f9;
+       color: #333;
+       line-height: 1.6;
+   }
+   
+   img {
+       max-width: 100%;
+       display: block;
+   }
+   
+   a {
+       text-decoration: none;
+       color: inherit;
+   }
+   
+   .container {
+       width: 90%;
+       max-width: 1200px;
+       margin: 0 auto;
+   }
+   
+   /* ===========================
+      HEADER
+      =========================== */
+   .header {
+       background-color: #0075bf;
+       color: white;
+       text-align: center;
+       padding: 1.5rem 0;
+   }
+   .header h1 {
+       margin-bottom: 0.5rem;
+   }
+   .header p {
+       font-size: 1.2rem;
+   }
+   
+   /* ===========================
+      NAVBAR
+      =========================== */
+   .navbar {
+       background-color: #004876;
+   }
+   
+   /* 
+      Ajout d'un container flex pour aligner
+      la partie "liens" et la partie "langue".
+   */
+   .navbar .container {
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+       padding: 0.75rem 0;
+   }
+   
+   /* Liste de liens dans la navbar */
+   .nav-links {
+       list-style-type: none;
+       display: flex;
+       gap: 1rem;
+   }
+   
+   /* Style des liens dans la nav */
+   .nav-links a {
+       color: white;
+       font-weight: 500;
+       padding: 0.5rem;
+       transition: background-color 0.2s ease;
+   }
+   .nav-links a:hover {
+       background-color: rgba(255, 255, 255, 0.1);
+       border-radius: 4px;
+   }
+   
+   /* ===========================
+      DROPDOWN / LANGUAGE SELECTOR
+      =========================== */
+   .language-selector {
+       position: relative;
+   }
+   
+   /* Bouton principal pour la langue */
+   .lang-button {
+       background-color: #002b5c;
+       color: white;
+       border: none;
+       padding: 0.5rem 0.75rem;
+       font-size: 1rem;
+       cursor: pointer;
+       border-radius: 4px;
+       transition: background-color 0.2s ease;
+   }
+   .lang-button:hover {
+       background-color: #0075bf;
+   }
+   
+   .logo_lang {
+       margin-right: 0.5rem;
+       vertical-align: middle;
+   }
+   
+   /* Le menu déroulant */
+   .dropdown-content {
+       display: none;
+       position: absolute;
+       right: 0;
+       top: 40px; /* Ajuste selon la hauteur du bouton */
+       background-color: white;
+       min-width: 100px;
+       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+       z-index: 1;
+   }
+   
+   .dropdown-content a {
+       color: black;
+       padding: 0.5rem 1rem;
+       display: block;
+   }
+   .dropdown-content a:hover {
+       background-color: #ddd;
+   }
+   
+   /* Affichage au survol */
+   .language-selector:hover .dropdown-content {
+       display: block;
+   }
+   
+   /* ===========================
+      SECTIONS GÉNÉRALES
+      =========================== */
+   .section {
+       margin: 2rem 0;
+   }
+   .section h2 {
+       margin-bottom: 1rem;
+       color: #0075bf;
+   }
+   .section p {
+       margin-bottom: 1rem;
+       line-height: 1.6;
+   }
+   
+   /* ===========================
+      LIENS SPÉCIFIQUES
+      =========================== */
+   .link {
+       font-weight: bold;
+       font-style: italic;
+       color: black;
+   }
+   .link_section {
+       color: black;
+   }
+   
+   /* ===========================
+      IMAGES GRID
+      =========================== */
+   .images-grid {
+       display: grid;
+       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+       gap: 1rem;
+   }
+   .images-grid img {
+       width: 100%;
+       border-radius: 8px;
+       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+   }
+   
+   /* ===========================
+      BUTTON (pour GitHub, etc.)
+      =========================== */
+   .btn {
+       display: inline-block;
+       background-color: #0075bf;
+       color: white;
+       padding: 0.8rem 1.5rem;
+       border-radius: 5px;
+       font-size: 1rem;
+       margin-top: 1rem;
+       transition: background-color 0.2s ease;
+   }
+   .btn:hover {
+       background-color: #004876;
+   }
+   
+   /* ===========================
+      FOOTER
+      =========================== */
+   .footer {
+       background-color: #333;
+       color: white;
+       text-align: center;
+       padding: 1rem 0;
+       margin-top: 2rem;
+   }
+   .footer a {
+       color: #fff;
+       text-decoration: underline;
+   }
+   .footer a:hover {
+       text-decoration: none;
+   }
+   
+   /* ===========================
+      MEDIA QUERIES (EXEMPLE)
+      =========================== */
+   /* 
+      Si tu souhaites rendre la navbar colonne
+      sur mobile, tu peux ajouter ceci :
+   */
+   @media (max-width: 768px) {
+       .navbar .container {
+           flex-direction: column;
+           align-items: flex-start;
+           gap: 0.5rem;
+       }
+       .nav-links {
+           flex-direction: column;
+           width: 100%;
+       }
+       .nav-links a {
+           padding: 0.75rem 1rem;
+       }
+       
+       .language-selector {
+           align-self: flex-end; /* le selecteur de langue en haut à droite */
+       }
+   }
+   

@@ -1,104 +1,261 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fluid Mechanics Research</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Research project on sea spray transport and evaporation using fluid mechanics models. Lagrangian and Eulerian approaches for climate and cyclone predictions."/>
+  
+  <title>Fluid Mechanics Research</title>
+  
+  <!-- Lien vers ta feuille de style personnalisée -->
+  <link rel="stylesheet" href="styles.css" />
+  
+  <!-- Polyfill et MathJax pour équations LaTeX -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
 </head>
+
 <body>
-    <header class="header">
-
-        <div class="container">
-            <h1>Exploring Numerical Methods for Transport and Evaporation of Sea Spray</h1>
-            <p>Applied Mathematics and Numerical Simulation work for a 2nd year master project</p>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container">
+      <h1>Exploring Numerical Methods for Transport and Evaporation of Sea Spray</h1>
+      <p>Applied Mathematics and Numerical Simulation work for a 2nd year master project</p>
+    </div>
+  </header>
+  
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="container navbar-content">
+      <ul class="nav-links">
+        <li><a href="#context">Context</a></li>
+        <li><a href="#theory">Theory</a></li>
+        <li><a href="#lagrange">Lagrangian Model</a></li>
+        <li><a href="#euler">Eulerian Model</a></li>
+        <li><a href="#results">Key Results</a></li>
+        <li><a href="#code">GitHub Repository</a></li>
+      </ul>
+      
+      <div class="language-selector">
+        <img class="logo_lang" src="global.png" alt="Language Selector" height="20" width="20"/>
+        <button class="lang-button">EN</button>
+        <div class="dropdown-content">
+          <a href="index.html">English</a>
+          <a href="index_fr.html">French</a>
         </div>
-    </header>
-
-    <nav class="navbar">
-        <div class="container">
-            <a href="#context">Context</a>
-            <a href="#theory">Theory</a>
-            <a href="#lagrange">Lagrangian Model</a>
-            <a href="#euler">Eulerian Model</a>
-            <a href="#results">Key Results</a>
-            <a href="#code">GitHub Repository</a>
-            <div class="dropdown">
-                <img class="logo_lang" src=global.png alt="logo langue" height="15" width="15">
-                <button>En</button>
-                <div class="dropdown-content">
-                    <a href="index.html">English</a>
-                    <a href="index_fr.html">French</a>
-                </div>
-            </div>
-        </div>
-
-    </nav>
-
-    <main class="container">
-        <section id="context" class="section">
-            <h2>Context</h2>
-            <p>
-                Long-term climate and special extreme events evolution, such as tropical cyclones, are widly studied for more accurate predictions. In this context the estimates of sea spray behavior has revealed to be impactfull. Moreover in recent years, it has been suggested that these estimates need to incorporate an accurate description of the transport of sea spray within the atmospheric boundary layer and the drop-induced fluxes of momentum, heat and moisture, so that the resulting effects on atmospheric flow can be evaluated.
-            </p>
-            <p>
-                On the basis of <b>Fabirce Veron</b>'s and <b>Luc Mieussens</b>'s paper <a href="https://www.cambridge.org/core/journals/journal-of-fluid-mechanics/article/abs/an-eulerian-model-for-sea-spray-transport-and-evaporation/625CC4F0880F43189F746387EA43E770" target="_blank" class="link">An Eulerian model for sea spray transport and evaporation</a>, we numerically studied the <a href="#lagrange" class="link_section">Lagrangian</a> and the <a href="#euler" class="link_section">Eulerian</a> modele using different methodes detailed in the corresponding sections. 
-            </p>
-        </section>
-        <section id="theory" class="section">
-            <h2>Theoretical Background</h2>
-            <p>
-                Here we present a brief theoretical foundation for the study:
-            </p>
-            <p>
-                The Navier-Stokes equations for incompressible flow are given by:
-            </p>
-            <div class="equation">
-                \[
-                \frac{\partial \mathbf{u}}{\partial t} + (\mathbf{u} \cdot \nabla) \mathbf{u} = -\nabla p + \nu \nabla^2 \mathbf{u}, \quad \nabla \cdot \mathbf{u} = 0
-                \]
-            </div>
-            <p>
-                Where \( \mathbf{u} \) is the velocity field, \( p \) is the pressure, and \( \nu \) is the kinematic viscosity.
-            </p>
-        </section>
-
-        <section id="lagrange" class="section">
-            <h2>Lagrangian Model</h2>
-        </section>
-
-        <section id="euler" class="section">
-            <h2>Eulerian Model</h2>
-        </section>
-
-        <section id="results" class="section">
-            <h2>Key Results</h2>
-            <p>
-                Below are visualizations of the simulation results:
-            </p>
-            <div class="images-grid">
-                <img src="images/result1.png" alt="Result 1">
-                <img src="images/result2.png" alt="Result 2">
-                <img src="images/result3.png" alt="Result 3">
-            </div>
-        </section>
-
-        <section id="code" class="section">
-            <h2>GitHub Repository</h2>
-            <p>
-                The codebase for this research work can be found on GitHub:
-            </p>
-            <a href="https://github.com/baahirham-MMK/Projet_embruns" target="_blank" class="btn">View Repository</a>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 Fluid Mechanics Research | Designed for academic purposes</p>
-            <a href="https://enseirb-matmeca.bordeaux-inp.fr/fr">School Website</a>
-        </div>
-    </footer>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- CONTENU PRINCIPAL -->
+  <main class="container">
+    
+    <!-- SECTION CONTEXT -->
+    <section id="context" class="section">
+      <h2>Context</h2>
+      <p>
+        Long-term climate and extreme weather events, such as tropical cyclones, are widely studied 
+        for more accurate predictions. In this context, estimating the behavior of sea spray 
+        (saline droplets ejected from the ocean surface) has proven crucial. In recent years, 
+        it has become evident that these estimates need to include an accurate representation of 
+        sea spray transport within the atmospheric boundary layer, as well as the droplet-induced 
+        fluxes of momentum, heat, and moisture. These factors play a significant role in 
+        determining the overall evolution of the atmospheric flow and, consequently, cyclonic 
+        intensity and path.
+      </p>
+      <p>
+        Based on <strong>Fabrice Veron</strong> and <strong>Luc Mieussens</strong>'s paper 
+        <a href="https://www.cambridge.org/core/journals/journal-of-fluid-mechanics/article/abs/an-eulerian-model-for-sea-spray-transport-and-evaporation/625CC4F0880F43189F746387EA43E770"
+           target="_blank" 
+           class="link">
+          <em>An Eulerian model for sea spray transport and evaporation</em>
+        </a>, 
+        we numerically investigated two major modeling approaches for sea spray: the 
+        <a href="#lagrange" class="link_section">Lagrangian model</a> (tracking individual 
+        droplets) and the <a href="#euler" class="link_section">Eulerian model</a> (using a 
+        distribution function in phase space). Below, we detail these two approaches and compare 
+        some key results.
+      </p>
+    </section>
+    
+    <!-- SECTION THEORY -->
+    <section id="theory" class="section">
+      <h2>Theoretical Background</h2>
+      <p>
+        Much of our work relies on fundamental fluid mechanics and thermodynamics. 
+        The Navier-Stokes equations for incompressible flow serve as the macroscopic 
+        foundation:
+      </p>
+      <div class="equation">
+        \[
+        \frac{\partial \mathbf{u}}{\partial t} 
+        + (\mathbf{u} \cdot \nabla) \mathbf{u} 
+        = -\nabla p + \nu \nabla^2 \mathbf{u}, 
+        \quad \nabla \cdot \mathbf{u} = 0.
+        \]
+      </div>
+      <p>
+        Here, \( \mathbf{u} \) is the velocity field of air (or a carrier fluid), 
+        \( p \) is the pressure, and \( \nu \) is the kinematic viscosity. In addition, 
+        thermodynamic relations govern droplet evaporation, cooling/heating, and mass 
+        transfer at the droplet surface. The focus is on coupling these fluid equations 
+        with droplet dynamics, either by tracing droplets individually (Lagrangian) or 
+        by describing them in a continuous distribution (Eulerian).
+      </p>
+    </section>
+    
+    <!-- SECTION LAGRANGIAN -->
+    <section id="lagrange" class="section">
+      <h2>Lagrangian Model</h2>
+      <p>
+        In the Lagrangian approach, each droplet is treated as a particle whose motion 
+        and state (position, velocity, radius, mass, and temperature) are governed by 
+        a set of Ordinary Differential Equations (ODEs). For a single droplet \( p \):
+      </p>
+      <div class="equation">
+        \[
+          \begin{cases}
+            \frac{d \mathbf{x}_p}{dt} = \mathbf{v}_p, \\
+            \frac{d \mathbf{v}_p}{dt} = \frac{1}{m_p} \mathcal{F}(\mathbf{v}_p, \dots), \\
+            \frac{dr_p}{dt} = \mathcal{R}(\mathbf{v}_p, r_p, \dots), \\
+            \frac{dm_p}{dt} = \mathcal{M}(\mathbf{v}_p, m_p, \dots), \\
+            \frac{dT_p}{dt} = \mathcal{T}(\mathbf{v}_p, T_p, \dots).
+          \end{cases}
+        \]
+      </div>
+      <p>
+        Here, \( \mathbf{x}_p \) is the droplet position, \( \mathbf{v}_p \) its velocity, 
+        \( r_p \) its radius, \( m_p \) its mass, and \( T_p \) its temperature. The functions 
+        \( \mathcal{F}, \mathcal{R}, \mathcal{M}, \mathcal{T} \) encode the physics of 
+        drag, evaporation, and heat transfer. Numerically, these ODEs can be integrated 
+        with explicit or semi-implicit schemes (e.g., Euler or exponential integrators).
+      </p>
+      <p>
+        <strong>Advantages</strong>:
+        <ul>
+          <li>Intuitive interpretation of droplet trajectories.</li>
+          <li>Well-suited for relatively small or moderate droplet counts.</li>
+        </ul>
+        <strong>Drawbacks</strong>:
+        <ul>
+          <li>Computationally expensive for large droplet populations.</li>
+          <li>Statistical sampling may be needed to get global distributions.</li>
+        </ul>
+      </p>
+    </section>
+    
+    <!-- SECTION EULERIAN -->
+    <section id="euler" class="section">
+      <h2>Eulerian Model</h2>
+      <p>
+        In contrast, the Eulerian approach describes the droplets via a distribution function 
+        \( f(t,\mathbf{x},\mathbf{v},r,m,T) \), which represents the number density of droplets 
+        per infinitesimal volume in the <em>phase space</em> 
+        \((\mathbf{x}, \mathbf{v}, r, m, T)\). The governing equation is a transport equation 
+        reminiscent of a Boltzmann-type conservation law:
+      </p>
+      <div class="equation">
+        \[
+        \frac{\partial f}{\partial t} 
+        + \nabla_{\mathbf{x}} \cdot ( \mathbf{v} f ) 
+        + \nabla_{\mathbf{v}} \cdot \!\bigl(\tfrac{\mathcal{F}}{m} f\bigr)
+        + \frac{\partial}{\partial r} (\mathcal{R} f)
+        + \frac{\partial}{\partial m} (\mathcal{M} f)
+        + \frac{\partial}{\partial T} (\mathcal{T} f) = 0.
+        \]
+      </div>
+      <p>
+        Despite being elegant, this PDE is defined in a high-dimensional space (up to 9D if 
+        we consider \(\mathbf{x}\) and \(\mathbf{v}\) in 3D). Directly discretizing it with 
+        finite volume methods often leads to prohibitive computational costs and stringent 
+        CFL conditions, making naive Eulerian approaches impractical for long-time or 
+        large-scale simulations.
+      </p>
+      <p>
+        <strong>Dimensional Reduction & QMOM</strong>:  
+        To tackle the dimensional explosion, various techniques are proposed, such as 
+        assuming homogeneity in certain directions or using <em>Quadrature Method of Moments</em> (QMOM). 
+        In a 1-node QMOM, we track only a few moments of the distribution (e.g., total number 
+        of droplets, mean velocity), drastically reducing computational overhead. However, 
+        this introduces modeling assumptions about the shape of the droplet distribution.
+      </p>
+      <p>
+        <strong>Advantages</strong>:
+        <ul>
+          <li>Global view of the droplet distribution in phase space.</li>
+          <li>Potentially straightforward coupling with fluid equations.</li>
+        </ul>
+        <strong>Drawbacks</strong>:
+        <ul>
+          <li>High dimensionality \(\rightarrow\) large memory and CPU demands.</li>
+          <li>Stability constraints (CFL) can be severe.</li>
+        </ul>
+      </p>
+    </section>
+    
+    <!-- SECTION RESULTS -->
+    <section id="results" class="section">
+      <h2>Key Results</h2>
+      <p>
+        In our numerical tests, the Lagrangian model confirms that droplets accelerate 
+        towards the wind velocity, while their radius and mass decrease due to evaporation. 
+        We also observe that droplet temperatures adjust to ambient air temperature over time, 
+        influencing heat and moisture transfer rates. These behaviors collectively affect the 
+        relative humidity in the local flow.
+      </p>
+      <p>
+        The Eulerian model, although theoretically robust, revealed significant computational 
+        challenges when attempting a full 9D discretization. We observed extremely small 
+        permissible time steps (\(\Delta t \sim 10^{-12}\,s\)) to maintain stability, making 
+        the full Eulerian resolution prohibitive for multi-second or multi-minute simulations. 
+        This led us to consider reduced models (1D or 2D assumptions in velocity) or 
+        quadrature-based moment methods (QMOM).
+      </p>
+      <p>
+        Below are a few visual results exemplifying the droplet evaporation, velocity matching, 
+        and temperature evolution over time:
+      </p>
+      <div class="images-grid">
+        <figure>
+          <img src="images/result1.png" alt="Simulation result 1">
+          <figcaption>Result 1: Velocity evolution over time</figcaption>
+        </figure>
+        <figure>
+          <img src="images/result2.png" alt="Simulation result 2">
+          <figcaption>Result 2: Radius and mass decrease due to evaporation</figcaption>
+        </figure>
+        <figure>
+          <img src="images/result3.png" alt="Simulation result 3">
+          <figcaption>Result 3: Temperature equilibration with ambient air</figcaption>
+        </figure>
+      </div>
+    </section>
+    
+    <!-- SECTION GITHUB REPO -->
+    <section id="code" class="section">
+      <h2>GitHub Repository</h2>
+      <p>
+        The full codebase for this research project, including both the Lagrangian and 
+        Eulerian implementations (along with the reduced QMOM approach), can be found on GitHub:
+      </p>
+      <a href="https://github.com/baahirham-MMK/Projet_embruns" 
+         target="_blank" 
+         class="btn">
+        View Repository
+      </a>
+    </section>
+  </main>
+  
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>&copy; 2024 Fluid Mechanics Research | Designed for academic purposes</p>
+      <a href="https://enseirb-matmeca.bordeaux-inp.fr/fr" target="_blank">
+        School Website
+      </a>
+    </div>
+  </footer>
 </body>
 </html>
