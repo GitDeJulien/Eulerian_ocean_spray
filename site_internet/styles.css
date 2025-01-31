@@ -4,239 +4,310 @@
    *,
    *::before,
    *::after {
-       margin: 0;
-       padding: 0;
-       box-sizing: border-box;
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
    }
    
    body {
-       font-family: Arial, sans-serif;
-       background-color: #f9f9f9;
-       color: #333;
-       line-height: 1.6;
+     font-family: Arial, sans-serif;
+     background-color: #f9f9f9;
+     color: #333;
+     line-height: 1.6;
    }
    
    img {
-       max-width: 100%;
-       display: block;
+     max-width: 100%;
+     display: block;
    }
    
    a {
-       text-decoration: none;
-       color: inherit;
+     text-decoration: none;
+     color: inherit;
    }
    
    .container {
-       width: 90%;
-       max-width: 1200px;
-       margin: 0 auto;
+     width: 90%;
+     max-width: 1200px;
+     margin: 0 auto;
    }
    
    /* ===========================
       HEADER
       =========================== */
    .header {
-       background-color: #0075bf;
-       color: white;
-       text-align: center;
-       padding: 1.5rem 0;
+     background-color: #0075bf; /* Couleur plus vive */
+     color: white;
+     text-align: center;
+     padding: 1.5rem 0;
+     position: relative;
    }
-   .header h1 {
-       margin-bottom: 0.5rem;
-   }
-   .header p {
-       font-size: 1.2rem;
+   
+   .header-logo {
+     max-height: 60px;
+     margin-bottom: 1rem;
    }
    
    /* ===========================
       NAVBAR
       =========================== */
    .navbar {
-       background-color: #004876;
+     background-color: #004876; /* Couleur sombre */
    }
    
-   /* 
-      Ajout d'un container flex pour aligner
-      la partie "liens" et la partie "langue".
-   */
    .navbar .container {
-       display: flex;
-       justify-content: space-between;
-       align-items: center;
-       padding: 0.75rem 0;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 0.75rem 0;
    }
    
-   /* Liste de liens dans la navbar */
    .nav-links {
-       list-style-type: none;
-       display: flex;
-       gap: 1rem;
+     list-style-type: none;
+     display: flex;
+     gap: 1rem;
    }
    
-   /* Style des liens dans la nav */
    .nav-links a {
-       color: white;
-       font-weight: 500;
-       padding: 0.5rem;
-       transition: background-color 0.2s ease;
+     color: white;
+     font-weight: 500;
+     padding: 0.5rem;
+     transition: background-color 0.2s ease;
    }
+   
    .nav-links a:hover {
-       background-color: rgba(255, 255, 255, 0.1);
-       border-radius: 4px;
+     background-color: rgba(255, 255, 255, 0.1);
+     border-radius: 4px;
    }
    
    /* ===========================
-      DROPDOWN / LANGUAGE SELECTOR
+      LANGUAGE SELECTOR
       =========================== */
    .language-selector {
-       position: relative;
+     position: relative;
    }
    
-   /* Bouton principal pour la langue */
    .lang-button {
-       background-color: #002b5c;
-       color: white;
-       border: none;
-       padding: 0.5rem 0.75rem;
-       font-size: 1rem;
-       cursor: pointer;
-       border-radius: 4px;
-       transition: background-color 0.2s ease;
+     background-color: #002b5c;
+     color: white;
+     border: none;
+     padding: 0.5rem 0.75rem;
+     font-size: 1rem;
+     cursor: pointer;
+     border-radius: 4px;
+     transition: background-color 0.2s ease;
    }
+   
    .lang-button:hover {
-       background-color: #0075bf;
+     background-color: #0075bf;
    }
    
    .logo_lang {
-       margin-right: 0.5rem;
-       vertical-align: middle;
+     margin-right: 0.5rem;
+     vertical-align: middle;
    }
    
-   /* Le menu déroulant */
    .dropdown-content {
-       display: none;
-       position: absolute;
-       right: 0;
-       top: 40px; /* Ajuste selon la hauteur du bouton */
-       background-color: white;
-       min-width: 100px;
-       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-       z-index: 1;
+     display: none;
+     position: absolute;
+     right: 0;
+     top: 40px;
+     background-color: white;
+     min-width: 100px;
+     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+     z-index: 1;
    }
    
    .dropdown-content a {
-       color: black;
-       padding: 0.5rem 1rem;
-       display: block;
-   }
-   .dropdown-content a:hover {
-       background-color: #ddd;
+     color: black;
+     padding: 0.5rem 1rem;
+     display: block;
    }
    
-   /* Affichage au survol */
+   .dropdown-content a:hover {
+     background-color: #ddd;
+   }
+   
    .language-selector:hover .dropdown-content {
-       display: block;
+     display: block;
    }
    
    /* ===========================
-      SECTIONS GÉNÉRALES
+      SECTIONS
       =========================== */
    .section {
-       margin: 2rem 0;
+     margin: 2rem 0;
    }
+   
    .section h2 {
-       margin-bottom: 1rem;
-       color: #0075bf;
+     margin-bottom: 1rem;
+     color: #0075bf;
+     border-left: 4px solid #0075bf;
+     padding-left: 0.5rem;
+     font-weight: 600;
    }
+   
    .section p {
-       margin-bottom: 1rem;
-       line-height: 1.6;
+     margin-bottom: 1rem;
+     line-height: 1.6;
+   }
+   
+   .section ul {
+     margin-left: 1.5rem;
+     margin-bottom: 1rem;
+     list-style-type: disc;
+   }
+   
+   /* Avantages et Inconvénients */
+   .advantages-drawbacks {
+     margin-bottom: 1rem;
+   }
+   
+   .advantages-drawbacks strong {
+     display: block;
+     margin-bottom: 0.5rem;
+   }
+   
+   .advantages-drawbacks ul {
+     list-style-type: disc;
+     margin-left: 1.5rem;
+     margin-bottom: 1rem;
    }
    
    /* ===========================
-      LIENS SPÉCIFIQUES
+      EQUATIONS
       =========================== */
-   .link {
-       font-weight: bold;
-       font-style: italic;
-       color: black;
-   }
-   .link_section {
-       color: black;
+   .equation {
+     background-color: #ececec;
+     padding: 0.75rem;
+     margin: 1rem 0;
+     border-radius: 4px;
+     font-style: italic;
+     overflow-x: auto; /* Pour gérer si eq. trop large */
    }
    
    /* ===========================
       IMAGES GRID
       =========================== */
    .images-grid {
-       display: grid;
-       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-       gap: 1rem;
+     display: grid;
+     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+     gap: 1rem;
+     margin-top: 1rem;
    }
-   .images-grid img {
-       width: 100%;
-       border-radius: 8px;
-       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+   
+   .images-grid figure {
+     text-align: center;
+   }
+   
+   .images-grid figcaption {
+     font-size: 0.9rem;
+     color: #555;
+     margin-top: 0.5rem;
+   }
+   
+   /* Classes additionnelles pour le HTML optimisé */
+   .responsive-img {
+     width: 100%;
+     height: auto;
+   }
+   
+   .text-center {
+     text-align: center;
    }
    
    /* ===========================
-      BUTTON (pour GitHub, etc.)
+      HPC TABLE
+      =========================== */
+   .hpc-tables {
+     margin: 1.5rem 0;
+   }
+   
+   .hpc-table {
+     width: 100%;
+     border-collapse: collapse;
+     margin: 1rem 0;
+   }
+   
+   .hpc-table thead {
+     background-color: #e0e0e0;
+   }
+   
+   .hpc-table th,
+   .hpc-table td {
+     border: 1px solid #ccc;
+     padding: 0.5rem;
+     text-align: left;
+   }
+   
+   /* ===========================
+      BUTTON
       =========================== */
    .btn {
-       display: inline-block;
-       background-color: #0075bf;
-       color: white;
-       padding: 0.8rem 1.5rem;
-       border-radius: 5px;
-       font-size: 1rem;
-       margin-top: 1rem;
-       transition: background-color 0.2s ease;
+     display: inline-block;
+     background-color: #0075bf;
+     color: white;
+     padding: 0.8rem 1.5rem;
+     border-radius: 5px;
+     font-size: 1rem;
+     margin-top: 1rem;
+     transition: background-color 0.2s ease;
    }
+   
    .btn:hover {
-       background-color: #004876;
+     background-color: #004876;
+   }
+   
+   .mt-1 {
+     margin-top: 1rem;
    }
    
    /* ===========================
       FOOTER
       =========================== */
    .footer {
-       background-color: #333;
-       color: white;
-       text-align: center;
-       padding: 1rem 0;
-       margin-top: 2rem;
+     background-color: #333;
+     color: white;
+     text-align: center;
+     padding: 1rem 0;
+     margin-top: 2rem;
    }
+   
    .footer a {
-       color: #fff;
-       text-decoration: underline;
+     color: #fff;
+     text-decoration: underline;
    }
+   
    .footer a:hover {
-       text-decoration: none;
+     text-decoration: none;
    }
    
    /* ===========================
-      MEDIA QUERIES (EXEMPLE)
+      MEDIA QUERIES
       =========================== */
-   /* 
-      Si tu souhaites rendre la navbar colonne
-      sur mobile, tu peux ajouter ceci :
-   */
    @media (max-width: 768px) {
-       .navbar .container {
-           flex-direction: column;
-           align-items: flex-start;
-           gap: 0.5rem;
-       }
-       .nav-links {
-           flex-direction: column;
-           width: 100%;
-       }
-       .nav-links a {
-           padding: 0.75rem 1rem;
-       }
-       
-       .language-selector {
-           align-self: flex-end; /* le selecteur de langue en haut à droite */
-       }
+     .navbar .container {
+       flex-direction: column;
+       align-items: flex-start;
+       gap: 0.5rem;
+     }
+   
+     .nav-links {
+       flex-direction: column;
+       width: 100%;
+     }
+   
+     .nav-links a {
+       padding: 0.75rem 1rem;
+     }
+   
+     .language-selector {
+       align-self: flex-end;
+     }
+   
+     .centered-image img,
+     .responsive-img {
+       width: 80%;
+     }
    }
    

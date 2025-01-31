@@ -1,86 +1,253 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fluid Mechanics Research</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Projet de recherche sur le transport et l'évaporation des embruns marins utilisant des modèles de mécanique des fluides. Approches lagrangienne et eulérienne pour les prévisions climatiques et cycloniques."/>
+  
+  <title>Recherche en Mécanique des Fluides</title>
+  
+  <!-- Lien vers la feuille de style personnalisée -->
+  <link rel="stylesheet" href="styles.css" />
+  
+  <!-- Polyfill et MathJax pour équations LaTeX -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
 </head>
+
 <body>
-    <header class="header">
-
-        <div class="container">
-            <h1>Numerical Fluid Mechanics Research</h1>
-            <p>Exploring advanced simulations of fluid dynamics</p>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container">
+      <h1>Exploration des Méthodes Numériques pour le Transport et l'Évaporation des Embruns Marins</h1>
+      <p>Travail de Mathématiques Appliquées et de Simulation Numérique pour un projet de master de 2ème année</p>
+    </div>
+  </header>
+  
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="container navbar-content">
+      <ul class="nav-links">
+        <li><a href="#context">Contexte</a></li>
+        <li><a href="#theory">Cadre Théorique</a></li>
+        <li><a href="#lagrange">Modèle Lagrangien</a></li>
+        <li><a href="#euler">Modèle Eulérien</a></li>
+        <li><a href="#results">Résultats Clés</a></li>
+        <li><a href="#code">Dépôt GitHub</a></li>
+      </ul>
+      
+      <div class="language-selector">
+        <img class="logo_lang" src="images/global.png" alt="Sélecteur de Langue" height="20" width="20"/>
+        <button class="lang-button">FR</button>
+        <div class="dropdown-content">
+          <a href="index.html">Anglais</a>
+          <a href="index_fr.html">Français</a>
         </div>
-    </header>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- CONTENU PRINCIPAL -->
+  <main class="container">
+    
+    <!-- SECTION CONTEXTE -->
+    <section id="context" class="section">
+      <h2>Contexte</h2>
+      <p>
+        Le climat à long terme et les événements météorologiques extrêmes, tels que les cyclones tropicaux, sont largement étudiés 
+        pour des prévisions plus précises. Dans ce contexte, estimer le comportement des embruns marins 
+        (gouttelettes salines éjectées de la surface de l'océan) s'est avéré crucial. Ces dernières années, 
+        il est devenu évident que ces estimations doivent inclure une représentation précise du 
+        transport des embruns dans la couche limite atmosphérique, ainsi que les flux induits par les gouttelettes 
+        de quantité de mouvement, de chaleur et d'humidité. Ces facteurs jouent un rôle significatif dans 
+        la détermination de l'évolution globale de l'écoulement atmosphérique et, par conséquent, de l'intensité 
+        et de la trajectoire cycloniques.
+      </p>
+      <p>
+        Basé sur l'article de <strong>Fabrice Veron</strong> et <strong>Luc Mieussens</strong> 
+        <a href="https://www.cambridge.org/core/journals/journal-of-fluid-mechanics/article/abs/an-eulerian-model-for-sea-spray-transport-and-evaporation/625CC4F0880F43189F746387EA43E770"
+           target="_blank" 
+           class="link">
+          <em>Un modèle eulérien pour le transport et l'évaporation des embruns marins</em>
+        </a>, 
+        nous avons étudié numériquement deux principales approches de modélisation des embruns : le 
+        <a href="#lagrange" class="link_section">modèle lagrangien</a> (suivi des gouttelettes individuelles) et le <a href="#euler" class="link_section">modèle eulérien</a> (utilisation d'une fonction de distribution dans l'espace des phases). Ci-dessous, nous détaillons ces deux approches et comparons 
+        certains résultats clés.
+      </p>
+    </section>
+    
+    <!-- SECTION CADRE THÉORIQUE -->
+    <section id="theory" class="section">
+      <h2>Cadre Théorique</h2>
+      <p>
+        Une grande partie de notre travail repose sur les principes fondamentaux de la mécanique des fluides et de la thermodynamique. 
+        Les équations de Navier-Stokes pour un écoulement incompressible servent de base macroscopique :
+      </p>
+      <div class="equation">
+        \[
+        \frac{\partial \mathbf{u}}{\partial t} 
+        + (\mathbf{u} \cdot \nabla) \mathbf{u} 
+        = -\nabla p + \nu \nabla^2 \mathbf{u}, 
+        \quad \nabla \cdot \mathbf{u} = 0.
+        \]
+      </div>
+      <p>
+        Ici, \( \mathbf{u} \) est le champ de vitesse de l'air (ou d'un fluide porteur), 
+        \( p \) est la pression, et \( \nu \) est la viscosité cinématique. De plus, 
+        les relations thermodynamiques régissent l'évaporation des gouttelettes, le refroidissement/échauffement, et le transfert de masse à la surface de la gouttelette. L'accent est mis sur le couplage de ces équations fluides 
+        avec la dynamique des gouttelettes, soit en traçant les gouttelettes individuellement (Lagrangien) soit 
+        en les décrivant dans une distribution continue (Eulérien).
+      </p>
+    </section>
+    
+    <!-- SECTION MODÈLE LAGRANGIEN -->
+    <section id="lagrange" class="section">
+      <h2>Modèle Lagrangien</h2>
+      <p>
+        Dans l'approche lagrangienne, chaque gouttelette est traitée comme une particule dont le mouvement 
+        et l'état (position, vitesse, rayon, masse et température) sont régis par 
+        un ensemble d'Équations Différentielles Ordinaires (EDO). Pour une gouttelette unique \( p \) :
+      </p>
+      <div class="equation">
+        \[
+          \begin{cases}
+            \frac{d \mathbf{x}_p}{dt} = \mathbf{v}_p, \\
+            \frac{d \mathbf{v}_p}{dt} = \frac{1}{m_p} \mathcal{F}(\mathbf{v}_p, \dots), \\
+            \frac{dr_p}{dt} = \mathcal{R}(\mathbf{v}_p, r_p, \dots), \\
+            \frac{dm_p}{dt} = \mathcal{M}(\mathbf{v}_p, m_p, \dots), \\
+            \frac{dT_p}{dt} = \mathcal{T}(\mathbf{v}_p, T_p, \dots).
+          \end{cases}
+        \]
+      </div>
+      <p>
+        Ici, \( \mathbf{x}_p \) est la position de la gouttelette, \( \mathbf{v}_p \) sa vitesse, 
+        \( r_p \) son rayon, \( m_p \) sa masse, et \( T_p \) sa température. Les fonctions 
+        \( \mathcal{F}, \mathcal{R}, \mathcal{M}, \mathcal{T} \) codifient la physique de 
+        la traînée, de l'évaporation et du transfert de chaleur. Numériquement, ces EDO peuvent être intégrées 
+        avec des schémas explicites ou semi-implicites (par exemple, Euler ou intégrateurs exponentiels).
+      </p>
+      <p>
+        <strong>Avantages</strong> :
+        <ul>
+          <li>Interprétation intuitive des trajectoires des gouttelettes.</li>
+          <li>Bien adapté pour un nombre relativement petit ou modéré de gouttelettes.</li>
+        </ul>
+        <strong>Inconvénients</strong> :
+        <ul>
+          <li>Coûteux en termes de calcul pour de grandes populations de gouttelettes.</li>
+          <li>Un échantillonnage statistique peut être nécessaire pour obtenir des distributions globales.</li>
+        </ul>
+      </p>
+    </section>
+    
+    <!-- SECTION MODÈLE EULÉRIEN -->
+    <section id="euler" class="section">
+      <h2>Modèle Eulérien</h2>
+      <p>
+        En revanche, l'approche eulérienne décrit les gouttelettes via une fonction de distribution 
+        \( f(t,\mathbf{x},\mathbf{v},r,m,T) \), qui représente la densité de nombre de gouttelettes 
+        par volume infinitésimal dans l'<em>espace des phases</em> 
+        \((\mathbf{x}, \mathbf{v}, r, m, T)\). L'équation gouvernante est une équation de transport 
+        semblable à une loi de conservation de type Boltzmann :
+      </p>
+      <div class="equation">
+        \[
+        \frac{\partial f}{\partial t} 
+        + \nabla_{\mathbf{x}} \cdot ( \mathbf{v} f ) 
+        + \nabla_{\mathbf{v}} \cdot \!\bigl(\tfrac{\mathcal{F}}{m} f\bigr)
+        + \frac{\partial}{\partial r} (\mathcal{R} f)
+        + \frac{\partial}{\partial m} (\mathcal{M} f)
+        + \frac{\partial}{\partial T} (\mathcal{T} f) = 0.
+        \]
+      </div>
+      <p>
+        Malgré son élégance, cette EDP est définie dans un espace de haute dimension (jusqu'à 9D si 
+        nous considérons \(\mathbf{x}\) et \(\mathbf{v}\) en 3D). La discrétisation directe avec 
+        des méthodes de volumes finis conduit souvent à des coûts de calcul prohibitifs et des conditions 
+        CFL strictes, rendant les approches eulériennes naïves impraticables pour des simulations à long terme ou 
+        à grande échelle.
+      </p>
+      <p>
+        <strong>Réduction Dimensionnelle & QMOM</strong> :  
+        Pour faire face à l'explosion dimensionnelle, diverses techniques sont proposées, telles que 
+        supposer l'homogénéité dans certaines directions ou utiliser la <em>Méthode de Quadrature des Moments</em> (QMOM). 
+        Dans un QMOM à 1 nœud, nous ne suivons que quelques moments de la distribution (par exemple, le nombre total 
+        de gouttelettes, la vitesse moyenne), réduisant ainsi considérablement la charge de calcul. Cependant, 
+        cela introduit des hypothèses de modélisation sur la forme de la distribution des gouttelettes.
+      </p>
+      <p>
+        <strong>Avantages</strong> :
+        <ul>
+          <li>Vue globale de la distribution des gouttelettes dans l'espace des phases.</li>
+          <li>Possibilité de couplage relativement simple avec les équations fluides.</li>
+        </ul>
+        <strong>Inconvénients</strong> :
+        <ul>
+          <li>Haute dimensionalité \(\rightarrow\) grandes exigences en mémoire et en CPU.</li>
+          <li>Contraintes de stabilité (CFL) peuvent être sévères.</li>
+        </ul>
+      </p>
+    </section>
+    
+    <!-- SECTION RÉSULTATS -->
+    <section id="results" class="section">
+      <h2>Résultats Clés</h2>
+      <p>
+        Dans nos tests numériques, le modèle lagrangien confirme que les gouttelettes accélèrent 
+        vers la vitesse du vent, tandis que leur rayon et leur masse diminuent en raison de l'évaporation. 
+        Nous observons également que les températures des gouttelettes s'ajustent à la température de l'air ambiant au fil du temps, 
+        influençant les taux de transfert de chaleur et d'humidité. Ces comportements affectent collectivement l'humidité 
+        relative dans l'écoulement local.
+      </p>
+      <p>
+        Ci-dessous, quelques résultats visuels illustrant l'évaporation des gouttelettes, l'ajustement de la vitesse, 
+        et l'évolution de la température au fil du temps :
+      </p>
+      <div class="images-grid">
+        <figure>
+          <img src="images/graph_vitesse_new.png" alt="Résultat de simulation 1">
+          <figcaption>Résultat 1 : Évolution de la vitesse au fil du temps</figcaption>
+        </figure>
+        <figure>
+          <img src="images/graph_rayon_new.png" alt="Résultat de simulation 2">
+          <figcaption>Résultat 2 : Diminution du rayon et de la masse due à l'évaporation</figcaption>
+        </figure>
+        <figure>
+          <img src="images/temperature_new.png" alt="Résultat de simulation 3">
+          <figcaption>Résultat 3 : Équilibrage de la température avec l'air ambiant</figcaption>
+        </figure>
+      </div>
+    </section>
 
-    <nav class="navbar">
-        <div class="container">
-            <a href="#context">Context</a>
-            <a href="#theory">Theory</a>
-            <a href="#results">Key Results</a>
-            <a href="#code">GitHub Repository</a>
-        </div>
-        <div class="dropdown">
-            <button>Fr</button>
-            <div class="dropdown-content">
-                <a href="index.html">English</a>
-                <a href="index_fr.html">French</a>
-            </div>
-        </div>
-    </nav>
-
-    <main class="container">
-        <section id="context" class="section">
-            <h2>Context</h2>
-        </section>
-        <section id="theory" class="section">
-            <h2>Theoretical Background</h2>
-            <p>
-                Here we present a brief theoretical foundation for the study:
-            </p>
-            <p>
-                The Navier-Stokes equations for incompressible flow are given by:
-            </p>
-            <div class="equation">
-                \[
-                \frac{\partial \mathbf{u}}{\partial t} + (\mathbf{u} \cdot \nabla) \mathbf{u} = -\nabla p + \nu \nabla^2 \mathbf{u}, \quad \nabla \cdot \mathbf{u} = 0
-                \]
-            </div>
-            <p>
-                Where \( \mathbf{u} \) is the velocity field, \( p \) is the pressure, and \( \nu \) is the kinematic viscosity.
-            </p>
-        </section>
-
-        <section id="results" class="section">
-            <h2>Key Results</h2>
-            <p>
-                Below are visualizations of the simulation results:
-            </p>
-            <div class="images-grid">
-                <img src="images/result1.png" alt="Result 1">
-                <img src="images/result2.png" alt="Result 2">
-                <img src="images/result3.png" alt="Result 3">
-            </div>
-        </section>
-
-        <section id="code" class="section">
-            <h2>GitHub Repository</h2>
-            <p>
-                The codebase for this research can be found on GitHub:
-            </p>
-            <a href="https://github.com/your-repo-name" target="_blank" class="btn">View Repository</a>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 Fluid Mechanics Research | Designed for academic purposes</p>
-            <a href="https://enseirb-matmeca.bordeaux-inp.fr/fr">School Website</a>
-        </div>
-    </footer>
+    <p>
+      Le modèle eulérien, bien que théoriquement robuste, a révélé des défis computationnels significatifs lors de la tentative d'une discrétisation complète en 9D. Nous avons observé des pas de temps extrêmement petits (\(\Delta t \sim 10^{-12}\,s\)) pour maintenir la stabilité, rendant la résolution eulérienne complète prohibitive pour des simulations de plusieurs secondes ou minutes. Cela nous a conduits à envisager des modèles réduits (hypothèses en 1D ou 2D sur la vitesse) ou des méthodes de moments basées sur la quadrature (QMOM).
+    </p>
+    
+    <!-- SECTION DÉPÔT GITHUB -->
+    <section id="code" class="section">
+      <h2>Dépôt GitHub</h2>
+      <p>
+        L'ensemble du code pour ce projet de recherche, incluant les implémentations lagrangienne et eulérienne 
+        (ainsi que l'approche QMOM réduite), est disponible sur GitHub :
+      </p>
+      <a href="https://github.com/baahirham-MMK/Projet_embruns" 
+         target="_blank" 
+         class="btn">
+        Voir le Dépôt
+      </a>
+    </section>
+  </main>
+  
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>&copy; 2024 Recherche en Mécanique des Fluides | Conçu à des fins académiques</p>
+      <a href="https://enseirb-matmeca.bordeaux-inp.fr/fr" target="_blank">
+        Site de l'École
+      </a>
+    </div>
+  </footer>
 </body>
 </html>
